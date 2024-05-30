@@ -26,7 +26,7 @@ const AddProduct = () => {
       });
       navigate('/');
     } catch (error) {
-      console.error("Error adding the product:", error);
+      console.error('Error adding the product:', error);
     }
   };
 

@@ -1,109 +1,101 @@
 const express = require('express');
-const router = express.Router();
-const { protect } = require('../middlewares/authMiddleware');
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
+const { protect, admin } = require('../middlewares/authMiddleware');
+const router = express.Router();
 
-// Endpoint para obtener la información del usuario autenticado
-router.get('/me', protect, async (req, res) => {
-  const user = await User.findById(req.user.id).select('-password');
-  res.json(user);
-});
-
-// Endpoint para registrar un nuevo usuario
+// Ruta para registrar un nuevo usuario
 router.post('/register', async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, role } = req.body;
 
   try {
-    const userExists = await User.findOne({ email });
-
-    if (userExists) {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
       return res.status(400).json({ message: 'User already exists' });
     }
 
-    const user = await User.create({
+    const newUser = new User({
       name,
       email,
       password,
+      role: role || 'user',
     });
 
-    if (user) {
-      res.status(201).json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-        token: generateToken(user._id),
-      });
-    } else {
-      res.status(400).json({ message: 'Invalid user data' });
-    }
+    const savedUser = await newUser.save();
+    res.status(201).json(savedUser);
   } catch (error) {
     res.status(500).json({ message: 'Error registering user', error });
   }
 });
 
-// Endpoint para iniciar sesión
+// Ruta para iniciar sesión
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   try {
     const user = await User.findOne({ email });
-
-    if (user && (await bcrypt.compare(password, user.password))) {
-      res.json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-        token: generateToken(user._id),
-      });
-    } else {
-      res.status(401).json({ message: 'Invalid email or password' });
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid email or password' });
     }
+
+    const isMatch = await user.matchPassword(password);
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+
+    const token = jwt.sign({ id: user._id, role: user.role, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    res.json({ token, role: user.role, email: user.email });
   } catch (error) {
     res.status(500).json({ message: 'Error logging in', error });
   }
 });
 
-// Endpoint para actualizar la información del usuario autenticado
-router.put('/me', protect, async (req, res) => {
-  const { name, email, password } = req.body;
+// Ruta para cambiar la contraseña
+router.put('/change-password', protect, async (req, res) => {
+  const { oldPassword, newPassword } = req.body;
+  const user = await User.findById(req.user.id);
 
+  if (user && (await user.matchPassword(oldPassword))) {
+    user.password = newPassword;
+    await user.save();
+    res.json({ message: 'Password updated successfully' });
+  } else {
+    res.status(400).json({ message: 'Old password is incorrect' });
+  }
+});
+
+// Ruta para obtener información del usuario
+router.get('/:id', protect, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id);
-
+    const user = await User.findById(req.params.id).select('-password');
     if (user) {
-      user.name = name || user.name;
-      user.email = email || user.email;
-      if (password) {
-        const salt = await bcrypt.genSalt(10);
-        user.password = await bcrypt.hash(password, salt);
-      }
-
-      const updatedUser = await user.save();
-
-      res.json({
-        _id: updatedUser._id,
-        name: updatedUser.name,
-        email: updatedUser.email,
-        role: updatedUser.role,
-        token: generateToken(updatedUser._id),
-      });
+      res.json(user);
     } else {
       res.status(404).json({ message: 'User not found' });
     }
   } catch (error) {
-    res.status(500).json({ message: 'Error updating user data', error });
+    res.status(500).json({ message: 'Server error' });
   }
 });
 
-// Generate JWT
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: '30d',
-  });
-};
+// Ruta para actualizar información del usuario
+router.put('/:id', protect, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (user) {
+      user.name = req.body.name || user.name;
+      user.email = req.body.email || user.email;
+      if (req.body.password) {
+        user.password = req.body.password;
+      }
+      const updatedUser = await user.save();
+      res.json(updatedUser);
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
 module.exports = router;

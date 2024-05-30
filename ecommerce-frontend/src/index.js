@@ -1,15 +1,15 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
+import ReactDOM from 'react-dom/client'; // Importar createRoot desde react-dom/client
 import App from './App';
 import { CartProvider } from './context/CartContext';
+import { AuthProvider } from './context/AuthContext';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-ReactDOM.render(
-  <React.StrictMode>
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <AuthProvider>
     <CartProvider>
       <App />
     </CartProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </AuthProvider>
 );

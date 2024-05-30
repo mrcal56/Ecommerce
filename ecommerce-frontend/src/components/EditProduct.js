@@ -4,43 +4,42 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 const EditProduct = () => {
   const { id } = useParams();
-  const [product, setProduct] = useState({ name: '', price: '', description: '', imageUrl: '' });
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
+  const [description, setDescription] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProduct = async () => {
-      try {
-        const { data } = await axios.get(`http://localhost:5000/api/products/${id}`);
-        setProduct(data);
-      } catch (error) {
-        console.error('Error fetching product:', error);
-      }
+      const { data } = await axios.get(`http://localhost:5000/api/products/${id}`);
+      setName(data.name);
+      setPrice(data.price);
+      setDescription(data.description);
+      setImageUrl(data.imageUrl);
     };
 
     fetchProduct();
   }, [id]);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setProduct((prevProduct) => ({
-      ...prevProduct,
-      [name]: value,
-    }));
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
 
     try {
-      await axios.put(`http://localhost:5000/api/products/${id}`, product, {
+      await axios.put(`http://localhost:5000/api/products/${id}`, {
+        name,
+        price,
+        description,
+        imageUrl,
+      }, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       navigate('/edit-products');
     } catch (error) {
-      console.error('Error updating product:', error);
+      console.error('Error updating the product:', error);
     }
   };
 
@@ -50,21 +49,21 @@ const EditProduct = () => {
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="name" className="form-label">Name</label>
-          <input type="text" className="form-control" id="name" name="name" value={product.name} onChange={handleChange} required />
+          <input type="text" className="form-control" id="name" value={name} onChange={(e) => setName(e.target.value)} required />
         </div>
         <div className="mb-3">
           <label htmlFor="price" className="form-label">Price</label>
-          <input type="number" className="form-control" id="price" name="price" value={product.price} onChange={handleChange} required />
+          <input type="number" className="form-control" id="price" value={price} onChange={(e) => setPrice(e.target.value)} required />
         </div>
         <div className="mb-3">
           <label htmlFor="description" className="form-label">Description</label>
-          <textarea className="form-control" id="description" name="description" value={product.description} onChange={handleChange} required></textarea>
+          <textarea className="form-control" id="description" value={description} onChange={(e) => setDescription(e.target.value)} required></textarea>
         </div>
         <div className="mb-3">
           <label htmlFor="imageUrl" className="form-label">Image URL</label>
-          <input type="text" className="form-control" id="imageUrl" name="imageUrl" value={product.imageUrl} onChange={handleChange} required />
+          <input type="text" className="form-control" id="imageUrl" value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} required />
         </div>
-        <button type="submit" className="btn btn-primary">Save Changes</button>
+        <button type="submit" className="btn btn-primary">Update Product</button>
       </form>
     </div>
   );

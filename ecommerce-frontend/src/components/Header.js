@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import AuthContext from '../context/AuthContext';
+import { useAuth } from '../context/AuthContext';
 
 const Header = () => {
-  const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+  const { user, logout } = useAuth();
 
   const handleLogout = () => {
     logout();
@@ -12,43 +12,31 @@ const Header = () => {
   };
 
   return (
-    <header>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <div className="container-fluid">
-          <Link className="navbar-brand" to="/">My E-commerce</Link>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link className="nav-link" to="/cart">Cart</Link>
-              </li>
-              {user ? (
-                <>
-                  {user.role === 'admin' && (
-                    <li className="nav-item">
-                      <Link className="nav-link" to="/edit-products">Edit Products</Link>
-                    </li>
-                  )}
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/edit-account">Edit Account</Link>
-                  </li>
-                  <li className="nav-item">
-                    <button className="nav-link btn btn-link" onClick={handleLogout}>Logout</button>
-                  </li>
-                </>
-              ) : (
-                <>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/login">Login</Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/register">Register</Link>
-                  </li>
-                </>
-              )}
-            </ul>
-          </div>
+    <header className="bg-dark text-white py-3">
+      <div className="container">
+        <div className="d-flex justify-content-between align-items-center">
+          <h1><Link to="/" className="text-white text-decoration-none">My E-commerce</Link></h1>
+          <nav>
+            {user && (
+              <>
+                {user.role === 'admin' && (
+                  <Link to="/edit-products" className="btn btn-warning me-3">Edit Products</Link>
+                )}
+                <Link to="/edit-account" className="btn btn-info me-3">Edit Account</Link>
+              </>
+            )}
+            <Link to="/cart" className="text-white me-3">Cart</Link>
+            {!user ? (
+              <>
+                <Link to="/login" className="text-white me-3">Login</Link>
+                <Link to="/register" className="btn btn-primary">Register</Link>
+              </>
+            ) : (
+              <button onClick={handleLogout} className="btn btn-secondary">Logout</button>
+            )}
+          </nav>
         </div>
-      </nav>
+      </div>
     </header>
   );
 };
