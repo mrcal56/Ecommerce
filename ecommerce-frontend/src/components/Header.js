@@ -1,40 +1,32 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
-  const navigate = useNavigate();
-
   const handleLogout = () => {
     localStorage.removeItem('token');
-    localStorage.removeItem('role');
-    localStorage.removeItem('email');
-    navigate('/login');
+    window.location.href = '/login';
   };
 
-  const isLoggedIn = !!localStorage.getItem('token');
-  const role = localStorage.getItem('role');
-
   return (
-    <header className="bg-dark text-white py-3">
-      <div className="container">
-        <div className="d-flex justify-content-between align-items-center">
-          <h1><Link to="/" className="text-white text-decoration-none">My E-commerce</Link></h1>
-          <nav>
-            {role === 'admin' && (
-              <Link to="/edit-products" className="btn btn-warning me-3">Edit Products</Link>
-            )}
-            <Link to="/cart" className="text-white me-3">Cart</Link>
-            {!isLoggedIn ? (
-              <>
-                <Link to="/login" className="text-white me-3">Login</Link>
-                <Link to="/register" className="btn btn-primary">Register</Link>
-              </>
-            ) : (
-              <button onClick={handleLogout} className="btn btn-secondary">Logout</button>
-            )}
-          </nav>
+    <header>
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <div className="container-fluid">
+          <Link className="navbar-brand" to="/">My E-commerce</Link>
+          <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="navbar-nav ms-auto">
+              <li className="nav-item">
+                <Link className="nav-link" to="/cart">Cart</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/edit-account">Edit Account</Link> {/* Enlace a Edit Account */}
+              </li>
+              <li className="nav-item">
+                <button className="btn btn-link nav-link" onClick={handleLogout}>Logout</button>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
+      </nav>
     </header>
   );
 };

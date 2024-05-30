@@ -9,6 +9,7 @@ import Register from './components/Register';
 import AddProduct from './components/addProduct'; // Asegúrate de que los nombres coincidan
 import EditProducts from './components/EditProducts';
 import EditProduct from './components/EditProduct';
+import EditAccount from './components/EditAccount'; // Importar el nuevo componente
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/add-product" element={<AddProduct />} />
           <Route path="/edit-products" element={<EditProducts />} />
           <Route path="/edit-product/:id" element={<EditProduct />} />
+          <Route path="/edit-account" element={<EditAccount />} /> {/* Nueva ruta */}
         </Routes>
       </main>
     </Router>
