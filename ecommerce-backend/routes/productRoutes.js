@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { protect, admin } = require('../middlewares/authMiddleware');
-const Product = require('../models/Product');
+const Product = require('../models/product');
 
 // Ruta para obtener todos los productos
 router.get('/', async (req, res) => {
