@@ -67,6 +67,38 @@ router.post('/login', async (req, res) => {
   }
 });
 
+// Endpoint para actualizar la información del usuario autenticado
+router.put('/me', protect, async (req, res) => {
+  const { name, email, password } = req.body;
+
+  try {
+    const user = await User.findById(req.user.id);
+
+    if (user) {
+      user.name = name || user.name;
+      user.email = email || user.email;
+      if (password) {
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(password, salt);
+      }
+
+      const updatedUser = await user.save();
+
+      res.json({
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        role: updatedUser.role,
+        token: generateToken(updatedUser._id),
+      });
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating user data', error });
+  }
+});
+
 // Generate JWT
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
