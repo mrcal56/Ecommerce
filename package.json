@@ -1,0 +1,13 @@
+{
+  "name": "ecommerce",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd ecommerce-backend && npm start",
+    "client": "cd ecommerce-frontend && npm start"
+  },
+  "devDependencies": {
+    "concurrently": "^7.0.0"
+  }
+}
