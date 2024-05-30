@@ -1,34 +1,37 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
-import ProductList from './components/productList'; // Asegúrate de que los nombres coincidan
-import ProductDetail from './components/productDetail'; // Asegúrate de que los nombres coincidan
+import ProductList from './components/productList';
+import ProductDetail from './components/productDetail';
 import Cart from './components/Cart';
 import Login from './components/Login';
 import Register from './components/Register';
-import AddProduct from './components/addProduct'; // Asegúrate de que los nombres coincidan
+import AddProduct from './components/addProduct';
 import EditProducts from './components/EditProducts';
 import EditProduct from './components/EditProduct';
-import EditAccount from './components/EditAccount'; // Importar el nuevo componente
+import EditAccount from './components/EditAccount';
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
   return (
-    <Router>
-      <Header />
-      <main className="py-3">
-        <Routes>
-          <Route path="/" element={<ProductList />} exact />
-          <Route path="/product/:id" element={<ProductDetail />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/add-product" element={<AddProduct />} />
-          <Route path="/edit-products" element={<EditProducts />} />
-          <Route path="/edit-product/:id" element={<EditProduct />} />
-          <Route path="/edit-account" element={<EditAccount />} /> {/* Nueva ruta */}
-        </Routes>
-      </main>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Header />
+        <main className="py-3">
+          <Routes>
+            <Route path="/" element={<ProductList />} exact />
+            <Route path="/product/:id" element={<ProductDetail />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/add-product" element={<AddProduct />} />
+            <Route path="/edit-products" element={<EditProducts />} />
+            <Route path="/edit-product/:id" element={<EditProduct />} />
+            <Route path="/edit-account" element={<EditAccount />} />
+          </Routes>
+        </main>
+      </Router>
+    </AuthProvider>
   );
 }
 

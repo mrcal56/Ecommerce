@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import AuthContext from '../context/AuthContext';
 
 const EditAccount = () => {
   const [user, setUser] = useState({
@@ -9,7 +10,9 @@ const EditAccount = () => {
     password: '',
     confirmPassword: ''
   });
+  const { user: authUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     // Obtener la información del usuario actual
@@ -21,7 +24,13 @@ const EditAccount = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        setUser(data);
+        console.log('User data fetched:', data); // Log para verificar los datos obtenidos
+        setUser({
+          name: data.name,
+          email: data.email,
+          password: '',
+          confirmPassword: ''
+        });
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -41,7 +50,7 @@ const EditAccount = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (user.password !== user.confirmPassword) {
-      alert('Passwords do not match');
+      setMessage('Passwords do not match');
       return;
     }
 
@@ -59,28 +68,60 @@ const EditAccount = () => {
       navigate('/'); // Redirigir a la página principal o a otra página deseada
     } catch (error) {
       console.error('Error updating user data:', error);
+      setMessage('Error updating user data');
     }
   };
 
   return (
     <div className="container mt-5">
       <h1>Edit Account</h1>
+      {message && <div className="alert alert-danger">{message}</div>}
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="name" className="form-label">Name</label>
-          <input type="text" className="form-control" id="name" name="name" value={user.name} onChange={handleChange} required />
+          <input 
+            type="text" 
+            className="form-control" 
+            id="name" 
+            name="name" 
+            value={user.name} 
+            onChange={handleChange} 
+            required 
+          />
         </div>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">Email</label>
-          <input type="email" className="form-control" id="email" name="email" value={user.email} onChange={handleChange} required />
+          <input 
+            type="email" 
+            className="form-control" 
+            id="email" 
+            name="email" 
+            value={user.email} 
+            onChange={handleChange} 
+            required 
+          />
         </div>
         <div className="mb-3">
           <label htmlFor="password" className="form-label">Password</label>
-          <input type="password" className="form-control" id="password" name="password" value={user.password} onChange={handleChange} required />
+          <input 
+            type="password" 
+            className="form-control" 
+            id="password" 
+            name="password" 
+            value={user.password} 
+            onChange={handleChange} 
+          />
         </div>
         <div className="mb-3">
           <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
-          <input type="password" className="form-control" id="confirmPassword" name="confirmPassword" value={user.confirmPassword} onChange={handleChange} required />
+          <input 
+            type="password" 
+            className="form-control" 
+            id="confirmPassword" 
+            name="confirmPassword" 
+            value={user.confirmPassword} 
+            onChange={handleChange} 
+          />
         </div>
         <button type="submit" className="btn btn-primary">Update</button>
       </form>

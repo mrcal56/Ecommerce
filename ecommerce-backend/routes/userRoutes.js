@@ -1,82 +1,77 @@
 const express = require('express');
 const router = express.Router();
-const Product = require('../models/Product');
-const { protect, admin } = require('../middlewares/authMiddleware');
+const { protect } = require('../middlewares/authMiddleware');
+const User = require('../models/User');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 
-// Ruta para obtener todos los productos
-router.get('/', async (req, res) => {
-  try {
-    const products = await Product.find({});
-    res.json(products);
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching products' });
-  }
+// Endpoint para obtener la información del usuario autenticado
+router.get('/me', protect, async (req, res) => {
+  const user = await User.findById(req.user.id).select('-password');
+  res.json(user);
 });
 
-// Ruta para obtener un producto por ID
-router.get('/:id', async (req, res) => {
+// Endpoint para registrar un nuevo usuario
+router.post('/register', async (req, res) => {
+  const { name, email, password } = req.body;
+
   try {
-    const product = await Product.findById(req.params.id);
-    if (product) {
-      res.json(product);
-    } else {
-      res.status(404).json({ message: 'Product not found' });
+    const userExists = await User.findOne({ email });
+
+    if (userExists) {
+      return res.status(400).json({ message: 'User already exists' });
     }
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching product' });
-  }
-});
 
-// Ruta para crear un nuevo producto (solo admin)
-router.post('/', protect, admin, async (req, res) => {
-  const { name, price, description, imageUrl } = req.body;
-  try {
-    const product = new Product({
+    const user = await User.create({
       name,
-      price,
-      description,
-      imageUrl,
+      email,
+      password,
     });
-    const createdProduct = await product.save();
-    res.status(201).json(createdProduct);
+
+    if (user) {
+      res.status(201).json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        token: generateToken(user._id),
+      });
+    } else {
+      res.status(400).json({ message: 'Invalid user data' });
+    }
   } catch (error) {
-    res.status(500).json({ message: 'Error creating product' });
+    res.status(500).json({ message: 'Error registering user', error });
   }
 });
 
-// Ruta para actualizar un producto (solo admin)
-router.put('/:id', protect, admin, async (req, res) => {
-  const { name, price, description, imageUrl } = req.body;
+// Endpoint para iniciar sesión
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
   try {
-    const product = await Product.findById(req.params.id);
-    if (product) {
-      product.name = name || product.name;
-      product.price = price || product.price;
-      product.description = description || product.description;
-      product.imageUrl = imageUrl || product.imageUrl;
-      const updatedProduct = await product.save();
-      res.json(updatedProduct);
+    const user = await User.findOne({ email });
+
+    if (user && (await bcrypt.compare(password, user.password))) {
+      res.json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        token: generateToken(user._id),
+      });
     } else {
-      res.status(404).json({ message: 'Product not found' });
+      res.status(401).json({ message: 'Invalid email or password' });
     }
   } catch (error) {
-    res.status(500).json({ message: 'Error updating product' });
+    res.status(500).json({ message: 'Error logging in', error });
   }
 });
 
-// Ruta para eliminar un producto (solo admin)
-router.delete('/:id', protect, admin, async (req, res) => {
-  try {
-    const product = await Product.findById(req.params.id);
-    if (product) {
-      await product.remove();
-      res.json({ message: 'Product removed' });
-    } else {
-      res.status(404).json({ message: 'Product not found' });
-    }
-  } catch (error) {
-    res.status(500).json({ message: 'Error deleting product' });
-  }
-});
+// Generate JWT
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: '30d',
+  });
+};
 
 module.exports = router;
