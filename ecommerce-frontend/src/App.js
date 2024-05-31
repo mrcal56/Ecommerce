@@ -1,4 +1,5 @@
 import React from 'react';
+import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import ProductList from './components/productList';
@@ -11,6 +12,9 @@ import EditProducts from './components/EditProducts';
 import EditProduct from './components/EditProduct';
 import ChangePassword from './components/ChangePassword';
 import EditAccount from './components/EditAccount';  // Asegúrate de tener este componente
+import Footer from './components/Footer';
+import './App.css';
+
 
 const ErrorComponent = () => (
   <div>
@@ -37,6 +41,7 @@ function App() {
           <Route path="*" element={<ErrorComponent />} />
         </Routes>
       </main>
+      <Footer /> {/* Incluir el componente Footer */}
     </Router>
   );
 }
