@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import './index.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import ProductList from './components/productList';
@@ -11,10 +12,9 @@ import AddProduct from './components/addProduct';
 import EditProducts from './components/EditProducts';
 import EditProduct from './components/EditProduct';
 import ChangePassword from './components/ChangePassword';
-import EditAccount from './components/EditAccount';  // Asegúrate de tener este componente
+import EditAccount from './components/EditAccount';
 import Footer from './components/Footer';
-import './App.css';
-
+import FloatingCart from './components/FloatingCart';
 
 const ErrorComponent = () => (
   <div>
@@ -33,15 +33,15 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/add-product" element={<AddProduct />} />
           <Route path="/edit-products" element={<EditProducts />} />
           <Route path="/edit-product/:id" element={<EditProduct />} />
           <Route path="/change-password" element={<ChangePassword />} />
-          <Route path="/edit-account" element={<EditAccount />} />  {/* Ruta para editar cuenta */}
+          <Route path="/edit-account" element={<EditAccount />} />
           <Route path="*" element={<ErrorComponent />} />
         </Routes>
       </main>
-      <Footer /> {/* Incluir el componente Footer */}
+      <FloatingCart />
+      <Footer />
     </Router>
   );
 }

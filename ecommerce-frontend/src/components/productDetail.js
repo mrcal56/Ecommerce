@@ -1,41 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { Card, Container, Row, Col, Button } from 'react-bootstrap';
+import { useCart } from '../context/CartContext';
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const [product, setProduct] = useState(null);
-  const navigate = useNavigate();
+  const [product, setProduct] = useState({});
+  const { dispatch } = useCart();
 
   useEffect(() => {
     const fetchProduct = async () => {
-      try {
-        const { data } = await axios.get(`http://localhost:5000/api/products/${id}`);
-        setProduct(data);
-      } catch (error) {
-        console.error('Error fetching the product:', error);
-      }
+      const { data } = await axios.get(`http://localhost:5000/api/products/${id}`);
+      setProduct(data);
     };
 
     fetchProduct();
   }, [id]);
 
-  if (!product) return <div>Loading...</div>;
+  const addToCart = () => {
+    dispatch({ type: 'ADD_TO_CART', payload: product });
+  };
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-md-6">
-          <img src={product.imageUrl} className="img-fluid" alt={product.name} />
-        </div>
-        <div className="col-md-6">
-          <h1>{product.name}</h1>
-          <p>${product.price}</p>
-          <p>{product.description}</p>
-          <button className="btn btn-primary">Add to Cart</button>
-        </div>
-      </div>
-    </div>
+    <Container className="mt-4">
+      <Row>
+        <Col md={6}>
+          <Card.Img variant="top" src={product.imageUrl} />
+        </Col>
+        <Col md={6}>
+          <Card>
+            <Card.Body>
+              <Card.Title>{product.name}</Card.Title>
+              <Card.Text>{product.description}</Card.Text>
+              <Card.Text>${product.price}</Card.Text>
+              <Button variant="primary" onClick={addToCart}>
+                Añadir al Carrito
+              </Button>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

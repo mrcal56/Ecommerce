@@ -1,24 +1,27 @@
 import React from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
 
 const Footer = () => {
   return (
-    <footer className="bg-dark text-white mt-5 p-4 text-center">
-      <div className="container">
-        <div className="row">
-          <div className="col-md-4">
-            <img src="ruta-del-icono.png" alt="E-commerce Logo" style={{ width: '100px' }} />
-          </div>
-          <div className="col-md-4">
-            <p className="mb-1">Descripción breve del e-commerce.</p>
-            <p className="mb-1">Teléfono: (123) 456-7890</p>
-            <p className="mb-1">Email: contacto@ecommerce.com</p>
-            <p>Ubicación: Calle Falsa 123, Ciudad, País</p>
-          </div>
-          <div className="col-md-4">
-            <p>&copy; {new Date().getFullYear()} E-commerce. Todos los derechos reservados.</p>
-          </div>
-        </div>
-      </div>
+    <footer className="footer bg-dark text-white py-4">
+      <Container>
+        <Row>
+          <Col md={4} className="text-center text-md-left mb-3 mb-md-0">
+            <img src="/logo.png" alt="E-commerce Logo" className="mb-2" />
+            <p>Tu tienda de confianza para todas tus necesidades.</p>
+          </Col>
+          <Col md={4} className="text-center mb-3 mb-md-0">
+            <p><strong>Contacto</strong></p>
+            <p>Teléfono: (123) 456-7890</p>
+            <p>Email: contacto@ecommerce.com</p>
+          </Col>
+          <Col md={4} className="text-center text-md-right">
+            <p><strong>Ubicación</strong></p>
+            <p>Calle Falsa 123</p>
+            <p>Ciudad, País</p>
+          </Col>
+        </Row>
+      </Container>
     </footer>
   );
 };
