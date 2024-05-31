@@ -22,7 +22,7 @@ const FloatingCart = ({ onClose }) => {
     };
   }, [onClose]);
 
-  const subtotal = cartItems.reduce((acc, item) => acc + item.price, 0);
+  const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   return (
     <div className="floating-cart">
@@ -32,12 +32,12 @@ const FloatingCart = ({ onClose }) => {
       ) : (
         <>
           <ul>
-            {cartItems.map((item) => (
-              <li key={item._id}>
+            {cartItems.map((item, index) => (
+              <li key={`${item._id}-${index}`}>
                 <div className="item-details">
                   <img src={item.imageUrl} alt={item.name} className="cart-item-image" />
                   <span>{item.name}</span>
-                  <span>${item.price} MXN</span>
+                  <span>{item.quantity} x ${item.price} MXN</span>
                 </div>
                 <button
                   className="remove-button"
@@ -52,7 +52,7 @@ const FloatingCart = ({ onClose }) => {
             ))}
           </ul>
           <div className="cart-subtotal">
-            <span>Subtotal: ${subtotal} MXN</span>
+            <span>Subtotal: ${subtotal.toFixed(2)} MXN</span>
           </div>
           <button className="checkout-button" onClick={() => window.location.href = '/cart'}>Checkout</button>
         </>
