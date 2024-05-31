@@ -1,33 +1,62 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useCart } from '../context/CartContext';
 import './FloatingCart.css';
 
-const FloatingCart = () => {
-  const { cartItems = [], dispatch } = useCart();
+const FloatingCart = ({ onClose }) => {
+  const { cartItems, dispatch } = useCart();
 
-  const removeFromCart = (product) => {
-    dispatch({ type: 'REMOVE_FROM_CART', payload: product });
+  const removeFromCart = (item) => {
+    dispatch({ type: 'REMOVE_FROM_CART', payload: item });
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest('.floating-cart') && !event.target.closest('.add-to-cart-button')) {
+        onClose();
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [onClose]);
+
+  const subtotal = cartItems.reduce((acc, item) => acc + item.price, 0);
 
   return (
     <div className="floating-cart">
-      <h5>Cart</h5>
-      <ul>
-        {cartItems.map(item => (
-          <li key={item._id}>
-            <img src={item.imageUrl} alt={item.name} />
-            <div>
-              <p>{item.name}</p>
-              <p>${item.price} MXN</p>
-              <button onClick={() => removeFromCart(item)}>Remove</button>
-            </div>
-          </li>
-        ))}
-      </ul>
-      <div className="cart-total">
-        <strong>Total:</strong> ${cartItems.reduce((total, item) => total + item.price, 0)} MXN
-      </div>
-      <button className="btn btn-primary">Checkout</button>
+      <h4>Shopping Cart</h4>
+      {cartItems.length === 0 ? (
+        <p>Your cart is empty</p>
+      ) : (
+        <>
+          <ul>
+            {cartItems.map((item) => (
+              <li key={item._id}>
+                <div className="item-details">
+                  <img src={item.imageUrl} alt={item.name} className="cart-item-image" />
+                  <span>{item.name}</span>
+                  <span>${item.price} MXN</span>
+                </div>
+                <button
+                  className="remove-button"
+                  onClick={(e) => {
+                    e.stopPropagation(); // Evita que el clic cierre la ventana
+                    removeFromCart(item);
+                  }}
+                >
+                  Remove
+                </button>
+              </li>
+            ))}
+          </ul>
+          <div className="cart-subtotal">
+            <span>Subtotal: ${subtotal} MXN</span>
+          </div>
+          <button className="checkout-button" onClick={() => window.location.href = '/cart'}>Checkout</button>
+        </>
+      )}
     </div>
   );
 };

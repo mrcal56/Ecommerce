@@ -3,7 +3,7 @@ import { useCart } from '../context/CartContext';
 import './Cart.css';
 
 const Cart = () => {
-  const { cartItems = [], total = 0, checkout, dispatch } = useCart();
+  const { cartItems = [], dispatch } = useCart();
 
   const removeFromCart = (item) => {
     dispatch({ type: 'REMOVE_FROM_CART', payload: item });
@@ -27,10 +27,6 @@ const Cart = () => {
               </li>
             ))}
           </ul>
-          <div className="cart-total">
-            <span>Total: ${total} MXN</span>
-            <button onClick={checkout} className="checkout-button">Checkout</button>
-          </div>
         </>
       )}
     </div>

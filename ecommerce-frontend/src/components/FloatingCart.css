@@ -1,64 +1,81 @@
 .floating-cart {
-    position: fixed;
-    right: 20px;
-    top: 60px;
-    width: 300px;
-    background: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    border-radius: 5px;
-    z-index: 1000;
-  }
-  
-  .floating-cart h5 {
-    margin-top: 0;
-    font-size: 18px;
-  }
-  
-  .floating-cart ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .floating-cart ul li {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .floating-cart ul li img {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
-  }
-  
-  .floating-cart ul li button {
-    background: red;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 3px;
-  }
-  
-  .floating-cart .cart-total {
-    font-size: 16px;
-    margin-bottom: 10px;
-  }
-  
-  .floating-cart .btn {
-    width: 100%;
-    background: #007bff;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 3px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .floating-cart .btn:hover {
-    background-color: #0056b3;
-  }
-  
+  position: fixed;
+  top: 50px;
+  right: 20px;
+  width: 300px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 1000;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.floating-cart.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.floating-cart.hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.floating-cart h4 {
+  margin-bottom: 10px;
+}
+
+.floating-cart ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.floating-cart li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.floating-cart .item-details {
+  display: flex;
+  align-items: center;
+}
+
+.floating-cart .item-details img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.floating-cart .remove-button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.floating-cart .cart-subtotal {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.floating-cart .checkout-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  display: block;
+  width: 100%;
+}
+
+.floating-cart .checkout-button:hover {
+  background-color: #0056b3;
+}

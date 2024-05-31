@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
@@ -13,8 +13,7 @@ import EditProduct from './components/EditProduct';
 import ChangePassword from './components/ChangePassword';
 import EditAccount from './components/EditAccount';
 import Footer from './components/Footer';
-import FloatingCart from './components/FloatingCart';  // Import the FloatingCart component
-import './App.css';
+import FloatingCart from './components/FloatingCart';
 
 const ErrorComponent = () => (
   <div>
@@ -23,13 +22,14 @@ const ErrorComponent = () => (
 );
 
 function App() {
+  const [showFloatingCart, setShowFloatingCart] = useState(false);
+
   return (
     <Router>
-      <Header />
-      <FloatingCart />  {/* Include the FloatingCart component */}
+      <Header setShowFloatingCart={setShowFloatingCart} />
       <main className="py-3">
         <Routes>
-          <Route path="/" element={<ProductList />} exact />
+          <Route path="/" element={<ProductList setShowFloatingCart={setShowFloatingCart} />} exact />
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
@@ -42,7 +42,8 @@ function App() {
           <Route path="*" element={<ErrorComponent />} />
         </Routes>
       </main>
-      <Footer /> {/* Incluir el componente Footer */}
+      {showFloatingCart && <FloatingCart onClose={() => setShowFloatingCart(false)} />}
+      <Footer />
     </Router>
   );
 }

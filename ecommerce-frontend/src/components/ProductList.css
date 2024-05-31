@@ -1,39 +1,14 @@
-.product-card {
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-  }
-  
-  .card-img-container {
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .add-to-cart-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    display: none;
-    transition: transform 0.3s ease;
-  }
-  
-  .product-card:hover .add-to-cart-btn {
-    display: block;
-  }
-  
-  .card-img-top {
-    transition: transform 0.3s ease;
-  }
-  
-  .product-card:hover .card-img-top {
-    transform: scale(1.05);
-  }
-  
-  .card-body {
-    text-align: left;
-  }
-  
-  .product-card:hover {
-    transform: scale(1.02);
-  }
-  
+.card {
+  position: relative;
+}
+
+.add-to-cart-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: none;
+}
+
+.card:hover .add-to-cart-button {
+  display: block;
+}
