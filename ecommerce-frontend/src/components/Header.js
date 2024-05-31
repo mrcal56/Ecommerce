@@ -53,14 +53,14 @@ const Header = () => {
         </Link>
         {user ? (
           <>
-            <Link to="/edit-account">Mi Cuenta</Link>
-            {user.role === 'admin' && <Link to="/edit-products">Editar Productos</Link>}
-            <button onClick={logout}>Logout</button>
+            <button className="header-button" onClick={() => window.location.href = '/edit-account'}>Mi Cuenta</button>
+            {user.role === 'admin' && <button className="header-button" onClick={() => window.location.href = '/edit-products'}>Editar Productos</button>}
+            <button className="header-button" onClick={logout}>Logout</button>
           </>
         ) : (
           <>
-            <Link to="/login">Iniciar Sesión</Link>
-            <Link to="/register">Registrarse</Link>
+            <Link to="/login" className="header-button">Iniciar Sesión</Link>
+            <Link to="/register" className="header-button">Registrarse</Link>
           </>
         )}
       </div>

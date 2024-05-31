@@ -3,6 +3,26 @@ const router = express.Router();
 const { protect, admin } = require('../middlewares/authMiddleware');
 const Product = require('../models/product');
 
+
+// Ruta de búsqueda de productos
+router.get('/search', async (req, res) => {
+  try {
+    // Obtener el término de búsqueda de la query string
+    const query = req.query.q;
+
+    // Buscar productos cuyo nombre coincida con el término de búsqueda
+    const products = await Product.find({ name: { $regex: query, $options: 'i' } });
+
+    // Devolver los productos encontrados como respuesta JSON
+    res.json(products);
+  } catch (error) {
+    // Manejar errores y devolver un mensaje de error con el estado 500
+    console.error('Error fetching search results:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
 // Ruta para obtener todos los productos
 router.get('/', async (req, res) => {
   try {
@@ -27,7 +47,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Ruta para crear un nuevo producto (solo admin)
+// Ruta para crear un nuevo producto  solo admin)
 router.post('/', protect, admin, async (req, res) => {
   const { name, price, description, imageUrl } = req.body;
   try {

@@ -1,40 +1,37 @@
 import React from 'react';
 import { useCart } from '../context/CartContext';
+import './Cart.css';
 
 const Cart = () => {
-  const { cart, dispatch } = useCart();
+  const { cartItems = [], total = 0, checkout, dispatch } = useCart();
 
-  // Función para eliminar producto del carrito
-  const removeFromCart = (id) => {
-    dispatch({ type: 'REMOVE_FROM_CART', payload: id });
+  const removeFromCart = (item) => {
+    dispatch({ type: 'REMOVE_FROM_CART', payload: item });
   };
 
   return (
-    <div className="container">
-      <h1>Your Cart</h1>
-      {cart.length === 0 ? (
+    <div className="cart-container">
+      <h2>Shopping Cart</h2>
+      {cartItems.length === 0 ? (
         <p>Your cart is empty</p>
       ) : (
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {cart.map((item) => (
-              <tr key={item._id}>
-                <td>{item.name}</td>
-                <td>${item.price}</td>
-                <td>
-                  <button className="btn btn-danger" onClick={() => removeFromCart(item._id)}>Remove</button>
-                </td>
-              </tr>
+        <>
+          <ul className="cart-items">
+            {cartItems.map((item) => (
+              <li key={item._id} className="cart-item">
+                <div className="cart-item-details">
+                  <span className="item-name">{item.name}</span>
+                  <span className="item-price">${item.price} MXN</span>
+                  <button onClick={() => removeFromCart(item)} className="remove-button">Remove</button>
+                </div>
+              </li>
             ))}
-          </tbody>
-        </table>
+          </ul>
+          <div className="cart-total">
+            <span>Total: ${total} MXN</span>
+            <button onClick={checkout} className="checkout-button">Checkout</button>
+          </div>
+        </>
       )}
     </div>
   );
