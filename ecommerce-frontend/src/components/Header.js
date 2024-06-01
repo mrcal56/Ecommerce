@@ -11,6 +11,9 @@ const Header = ({ setShowFloatingCart }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [showSearchBox, setShowSearchBox] = useState(false);
 
+  //const searchBoxRef = useRef(null);
+
+
   useEffect(() => {
     if (searchTerm) {
       const fetchResults = async () => {
@@ -53,7 +56,10 @@ const Header = ({ setShowFloatingCart }) => {
         <Link to="/" className="logo">E-Commerce</Link>
       </div>
       <div className="header-center">
-        <div className="search-container">
+       
+      </div>
+      <div className="header-right">
+      <div className="search-container">
           <i className="fas fa-search search-icon" onClick={handleSearchToggle}></i>
           {showSearchBox && (
             <div className="search-box">
@@ -75,8 +81,6 @@ const Header = ({ setShowFloatingCart }) => {
             </div>
           )}
         </div>
-      </div>
-      <div className="header-right">
         <Link to="/cart" className="cart-icon">
           <i className="fas fa-shopping-cart"></i>
           {cartItems.length > 0 && <span className="cart-count">{cartItems.length}</span>}
