@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import './FloatingCart.css';
 
 const FloatingCart = ({ onClose }) => {
   const { cartItems, dispatch } = useCart();
+  const navigate = useNavigate();
 
   const removeFromCart = (item) => {
     dispatch({ type: 'REMOVE_FROM_CART', payload: item });
@@ -54,7 +56,7 @@ const FloatingCart = ({ onClose }) => {
           <div className="cart-subtotal">
             <span>Subtotal: ${subtotal.toFixed(2)} MXN</span>
           </div>
-          <button className="checkout-button" onClick={() => window.location.href = '/cart'}>Checkout</button>
+          <button className="checkout-button" onClick={() => navigate('/cart')}>Checkout</button>
         </>
       )}
     </div>

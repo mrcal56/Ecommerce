@@ -1,0 +1,76 @@
+.payment-status-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #2b3035;
+    color: #ffffff;
+    border-radius: 5px;
+    font-family: Verdana, sans-serif;
+  }
+  
+  .payment-status-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .payment-status-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .payment-status-table th,
+  .payment-status-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .payment-status-table th {
+    background-color: #3a3f44;
+  }
+  
+  .payment-status-table tr:nth-child(even) {
+    background-color: #3a3f44;
+  }
+  
+  .payment-status-table tr:hover {
+    background-color: #5a5f64;
+  }
+  
+  .payment-status-table td {
+    color: #ffffff;
+  }
+  
+  .status-paid {
+    color: #28a745;
+    font-weight: bold;
+  }
+  
+  .status-pending {
+    color: #ffc107;
+    font-weight: bold;
+  }
+  
+  .status-cancelled {
+    color: #dc3545;
+    font-weight: bold;
+  }
+  
+  .back-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto 0;
+    text-align: center;
+    width: 150px;
+  }
+  
+  .back-button:hover {
+    background-color: #0056b3;
+  }
+  

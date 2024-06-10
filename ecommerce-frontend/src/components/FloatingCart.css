@@ -3,7 +3,8 @@
   top: 50px;
   right: 20px;
   width: 300px;
-  background-color: #3a3f45;
+  background-color: #ffffff;
+  color: #2b3035;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   padding: 10px;
@@ -23,15 +24,12 @@
 
 .floating-cart h4 {
   margin-bottom: 10px;
-  color: #ffffff;
 }
 
 .floating-cart ul {
   list-style: none;
   padding: 0;
   margin: 0;
-  color: #ffffff;
-
 }
 
 .floating-cart li {
@@ -39,7 +37,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 0;
-  border-bottom: 1px solid #474d54;
+  border-bottom: 1px solid #ddd;
 }
 
 .floating-cart .item-details {
@@ -51,11 +49,10 @@
   width: 50px;
   height: 50px;
   margin-right: 10px;
-  border-radius: 5px;
 }
 
 .floating-cart .remove-button {
-  background-color: #ff6f61;
+  background-color: red;
   color: white;
   border: none;
   padding: 5px 10px;
@@ -66,11 +63,10 @@
 .floating-cart .cart-subtotal {
   margin-top: 10px;
   font-weight: bold;
-  color: #ffffff;
 }
 
 .floating-cart .checkout-button {
-  background-color: #3c49bd;
+  background-color: #007bff;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -82,5 +78,5 @@
 }
 
 .floating-cart .checkout-button:hover {
-  background-color: #3c49bd;
+  background-color: #0056b3;
 }
