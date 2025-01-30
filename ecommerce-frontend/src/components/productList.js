@@ -39,15 +39,7 @@ const ProductList = ({ onAddToCart }) => {
                 <h5 className="card-title">{product.name}</h5>
                 <p className="card-text">{product.description}</p>
                 <p className="card-text">${product.price} MXN</p>
-                <button 
-                  className="btn btn-primary add-to-cart-button" 
-                  onClick={(e) => { 
-                    e.stopPropagation(); // Evitar que el clic en el botón se propague al contenedor de la tarjeta
-                    addToCart(product); 
-                  }}
-                >
-                  Add to Cart
-                </button>
+                
               </div>
             </div>
           </div>

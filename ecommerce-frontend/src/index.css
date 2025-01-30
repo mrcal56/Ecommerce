@@ -2,21 +2,16 @@
 html, body {
     margin: 0;
     padding: 0;
+    overflow-x: hidden; /* Evita el desplazamiento horizontal */
     height: 100%;
     font-family: Verdana, sans-serif;
-    background-color: #2b3035; /* Fondo de toda la página */
+    background-color: #000000cc; /* Fondo de toda la página */
     color: #ffffff; /* Color del texto */
+    text-decoration: none !important;
+
   }
   
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #2b3035;
-    color: #ffffff;
-    font-family: Verdana, sans-serif;
-  }
+  
   
   .header .menu-icon,
   .header .search-icon,

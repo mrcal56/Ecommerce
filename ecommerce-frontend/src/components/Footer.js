@@ -1,27 +1,20 @@
 import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { FaInstagram } from 'react-icons/fa';
+import "./Footer.css";
+import logo from "../flammeB.png";
 
 const Footer = () => {
   return (
-    <footer className="footer bg-dark text-white py-4">
-      <Container>
-        <Row>
-          <Col md={4} className="text-center text-md-left mb-3 mb-md-0">
-            <img src="/logo.png" alt="E-commerce Logo" className="mb-2" />
-            <p>Tu tienda de confianza para todas tus necesidades.</p>
-          </Col>
-          <Col md={4} className="text-center mb-3 mb-md-0">
-            <p><strong>Contacto</strong></p>
-            <p>Teléfono: (123) 456-7890</p>
-            <p>Email: contacto@ecommerce.com</p>
-          </Col>
-          <Col md={4} className="text-center text-md-right">
-            <p><strong>Ubicación</strong></p>
-            <p>Calle Falsa 123</p>
-            <p>Ciudad, País</p>
-          </Col>
-        </Row>
-      </Container>
+    <footer className="footer">
+      <div className="footer-left">
+        <a href="https://www.instagram.com/flammestore__/" target="_blank" rel="noopener noreferrer" className="instagram-link">
+          <FaInstagram className="instagram-icon" />
+        </a>
+      </div>
+      <div className="footer-content">
+        <img src={logo} alt="Flamme Logo" className="footer-logo" />
+        <p className="footer-text">We do what we like 🔥</p>
+      </div>
     </footer>
   );
 };

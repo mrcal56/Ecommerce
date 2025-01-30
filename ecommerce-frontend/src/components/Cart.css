@@ -1,7 +1,10 @@
+/* ✅ Estilos generales */
 body {
   background-color: #2b3035;
   color: #ffffff;
   font-family: Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 .cart-container {
@@ -13,71 +16,106 @@ body {
   border-radius: 5px;
 }
 
+/* ✅ Lista de productos en el carrito */
 .cart-items {
   list-style-type: none;
   padding: 0;
 }
 
+/* ✅ Cada producto en el carrito */
 .cart-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #ddd;
-  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 15px 10px;
+  position: relative;
+  transition: background 0.3s;
 }
 
+.cart-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ✅ Detalles del producto */
 .cart-item-details {
   display: flex;
   align-items: center;
+  flex: 1;
+  gap: 15px;
 }
 
-.item-name {
+/* ✅ Imagen del producto */
+.cart-item img {
+  width: 80px; /* Ajusta el tamaño de la imagen */
+  height: auto;
+  border-radius: 8px;
+  margin-right: 15px;
+}
+
+.item-name, .item-price {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #ffffff;
   margin-right: 20px;
 }
 
-.item-price {
-  margin-right: 20px;
-}
 
+/* ✅ Mueve el botón a la derecha sin romper la estructura */
 .remove-button {
   background-color: #dc3545;
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 8px 15px;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.3s;
+  margin-left: auto; /* ✅ Empuja el botón hacia la derecha */
 }
+
 
 .remove-button:hover {
   background-color: #c82333;
 }
 
+/* ✅ Sección del total del carrito */
 .cart-total {
   text-align: right;
   margin-top: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ffffff;
 }
 
+/* ✅ Botón de Checkout centrado */
 .checkout-button {
   background-color: #28a745;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 15px;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 1.2rem;
+  width: 100%;
+  margin-top: 15px;
 }
 
 .checkout-button:hover {
   background-color: #218838;
 }
 
+/* ✅ Formulario de pago */
 .checkout-form {
-  background-color: #2b3035;
+  background-color: #3a3f44;
   color: #ffffff;
   padding: 20px;
-  border-radius: 5px;
+  border-radius: 10px;
   margin-top: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+/* ✅ Inputs del formulario */
 .form-group {
   margin-bottom: 15px;
 }
@@ -85,6 +123,7 @@ body {
 .form-group label {
   display: block;
   margin-bottom: 5px;
+  font-size: 1rem;
 }
 
 .form-group input {
@@ -92,17 +131,46 @@ body {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  background: #fff;
+  color: #000;
 }
 
+/* ✅ Botón de enviar formulario */
 .submit-button {
   background-color: #28a745;
   color: white;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
+  font-size: 1rem;
   cursor: pointer;
+  transition: background 0.3s;
+  width: 100%;
+  text-align: center;
 }
 
 .submit-button:hover {
   background-color: #218838;
+}
+
+/* ✅ Responsividad para pantallas más pequeñas */
+@media (max-width: 768px) {
+  .cart-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cart-item-details {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .item-name, .item-price {
+    margin-bottom: 5px;
+  }
+
+  .remove-button {
+    width: 100%;
+    text-align: center;
+  }
 }

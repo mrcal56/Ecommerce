@@ -3,55 +3,85 @@ import React, { createContext, useReducer, useContext } from 'react';
 // Crear contexto del carrito
 const CartContext = createContext();
 
+
 // Reducer para manejar las acciones del carrito
 const cartReducer = (state, action) => {
   switch (action.type) {
-    case 'ADD_TO_CART':
-      const existingItem = state.cartItems.find(item => item._id === action.payload._id);
+    case 'ADD_TO_CART': {
+      const { _id, size, price, quantity } = action.payload;
+      
+      const existingItem = state.cartItems.find(
+        item => item._id === _id && item.size === size
+      );
+
       if (existingItem) {
-        // Incrementar la cantidad si el producto ya está en el carrito
+        // Incrementa la cantidad si el producto y talla ya están en el carrito
         return {
           ...state,
           cartItems: state.cartItems.map(item =>
-            item._id === action.payload._id ? { ...item, quantity: item.quantity + 1 } : item
+            item._id === _id && item.size === size
+              ? { ...item, quantity: item.quantity + quantity }
+              : item
           ),
-          total: state.total + action.payload.price,
+          total: state.total + price * quantity,
+          totalItems: state.totalItems + quantity, // Incrementa el total de productos
         };
       } else {
-        // Añadir el producto al carrito si no está presente
+        // Agrega un nuevo producto con talla diferente
         return {
           ...state,
-          cartItems: [...state.cartItems, { ...action.payload, quantity: 1 }],
-          total: state.total + action.payload.price,
+          cartItems: [...state.cartItems, { ...action.payload}],
+          total: state.total + price * quantity,
+          totalItems: state.totalItems + quantity, // Incrementa el total de productos
         };
       }
-    case 'REMOVE_FROM_CART':
-      const itemToRemove = state.cartItems.find(item => item._id === action.payload._id);
+    }
+
+    case 'REMOVE_FROM_CART': {
+      const { _id, size, price } = action.payload;
+      
+      const itemToRemove = state.cartItems.find(
+        item => item._id === _id && item.size === size
+      );
+
+      if (!itemToRemove) return state; // Si no existe, no hacer nada
+
       if (itemToRemove.quantity === 1) {
-        // Eliminar el producto del carrito si su cantidad es 1
-        const updatedCartItems = state.cartItems.filter(item => item._id !== action.payload._id);
+        // Si solo hay una unidad, se elimina del carrito
         return {
           ...state,
-          cartItems: updatedCartItems,
-          total: state.total - action.payload.price,
+          cartItems: state.cartItems.filter(
+            item => !(item._id === _id && item.size === size)
+          ),
+          total: state.total - price,
+          totalItems: state.totalItems - 1, // 🔹 Restamos correctamente la cantidad
+
         };
       } else {
-        // Reducir la cantidad del producto en el carrito
+        // Reduce la cantidad del producto con la talla específica
         return {
           ...state,
           cartItems: state.cartItems.map(item =>
-            item._id === action.payload._id ? { ...item, quantity: item.quantity - 1 } : item
+            item._id === _id && item.size === size
+              ? { ...item, quantity: item.quantity - 1 }
+              : item
           ),
-          total: state.total - action.payload.price,
+          total: state.total - price,
+          totalItems: state.totalItems - 1, // Reduce el total de productos
+
         };
       }
+    }
+
     case 'CHECKOUT':
       // Vaciar el carrito en el checkout
       return {
         ...state,
         cartItems: [],
         total: 0,
-      };
+        totalItems: 0, // 
+    };
+  
     default:
       return state;
   }
@@ -62,7 +92,9 @@ export const CartProvider = ({ children }) => {
   const initialState = {
     cartItems: [],
     total: 0,
+    totalItems: 0,
   };
+
   const [state, dispatch] = useReducer(cartReducer, initialState);
 
   const checkout = () => {

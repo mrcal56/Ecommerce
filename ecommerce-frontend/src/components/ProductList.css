@@ -1,7 +1,7 @@
 .product-card {
   background-color: #3a3f45;
-  border: 1px solid #474d54;
-  border-radius: 5px;
+  border: 18px solid #474d54;
+  border-radius: 20px;
   margin-bottom: 20px;
   transition: transform 0.3s ease;
   position: relative;
@@ -22,6 +22,8 @@
 }
 
 .product-card .card-title {
+  font-family: Open Sans, sans-serif;
+  font-weight: 700;
   font-size: 18px;
   color: #ffffff;
 }
@@ -34,15 +36,15 @@
 .product-card .card-price {
   font-size: 18px;
   font-weight: bold;
-  color: #ff6f61;
+  color: #926f6c;
 }
 
-.product-card .btn-primary {
-  background-color: #ff6f61;
+.product-card .btn-primary-add-to-cart{
+  background-color: #F8F9FA;
   border: none;
   color: #ffffff;
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 20px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   position: absolute;
@@ -51,10 +53,10 @@
   display: none;
 }
 
-.product-card:hover .btn-primary {
-  display: block;
+.product-card:hover .btn-primary-add-to-cart {
+  display: block;                                                           
 }
 
-.product-card .btn-primary:hover {
-  background-color: #e65e50;
+.product-card .btn-primary-add-to-cart:hover {
+  background-color: #867f7e;
 }

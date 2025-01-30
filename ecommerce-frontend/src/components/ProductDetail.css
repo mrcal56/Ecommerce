@@ -1,0 +1,219 @@
+/* Contenedor General */
+.product-detail-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* Tres columnas en pantallas grandes */
+  gap: 50px;
+  padding: 40px;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: auto;
+  text-align: center; /* Centra el texto en todas las pantallas */
+
+}
+
+.product-detail-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Alinea el texto al centro en móviles */
+  text-align: center; /* Centra el contenido */
+  justify-content: center; /* Centra verticalmente */
+  gap: 10px; /* Espaciado uniforme */
+  width: 100%;
+  max-width: 400px; /* Evita que el contenido se expanda demasiado */
+  margin: auto;
+}
+
+
+.product-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #666;
+  margin-bottom: 5px;
+
+}
+
+.product-price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #666;
+  margin-bottom: 10px;
+
+}
+
+.product-description {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #666;
+  max-width: 90%;
+
+}
+
+/* Columna Central */
+.product-detail-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-image {
+  max-width: 100%; /* Ajusta el ancho a su contenedor */
+  height: auto;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
+/* Contenedor de la sección de tallas y cantidad */
+.product-detail-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* Selector de tallas */
+.size-selector h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #000;
+}
+
+.sizes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.size-button {
+  padding: 10px 35px;
+  border: 1px solid #ddd;
+  background-color: #f8f8f8;
+  color: rgb(0, 0, 0);
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 400;
+  transition: all 0.3s ease;
+}
+
+.size-button.active {
+  background-color: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+.size-button:hover:not(.active) {
+  background-color: #0c0b0b;
+  color: #fff;
+  border-color: #ffffff;
+}
+
+/* Selector de cantidad */
+.quantity-selector h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #000;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quantity-button {
+  color: #000;
+  padding: 15px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  border-radius: 50%; /* Botones circulares */
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.quantity-button:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.quantity-value {
+  color: #000;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  min-width: 30px;
+}
+
+/* Botón "Add to Cart" */
+.add-to-cart-button {
+  padding: 15px;
+  background-color: #343A40;
+  color: white;
+  border: none;
+  border-radius: 35px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%; /* Ocupa todo el ancho en móviles */
+  text-align: center;
+}
+
+.add-to-cart-button:hover {
+  background-color: #DEE2E6;
+  color: #3a3f44;
+}
+
+/* ======== RESPONSIVIDAD PARA SMARTPHONES ======== */
+@media (max-width: 768px) {
+  .product-detail-container {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      padding: 20px;
+  }
+
+  .product-title {
+      font-size: 1.8rem;
+      text-align: center;
+  }
+
+  .product-price {
+      font-size: 1.4rem;
+      text-align: center;
+  }
+
+  .product-description {
+      text-align: center;
+  }
+
+  .product-image {
+      max-width: 90%;
+      height: auto;
+  }
+
+  .product-detail-left {
+    align-items: center; /* Alinea el texto al centro en móviles */
+    text-align: center; /* Centra el contenido */
+    width: 100%;
+}
+  .product-detail-right {
+      align-items: center;
+      width: 100%;
+  }
+
+  .sizes {
+      justify-content: center;
+  }
+
+  .quantity-controls {
+      justify-content: center;
+  }
+
+  .add-to-cart-button {
+      width: 80%;
+  }
+}

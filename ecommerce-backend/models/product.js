@@ -19,6 +19,12 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    sizes: [
+      {
+        size: { type: String, required: true }, // XS, S, M, L, XL, etc.
+        stock: { type: Number, required: true, default: 0 }, // Stock de cada talla
+      }
+    ],
   },
   {
     timestamps: true,

@@ -49,13 +49,14 @@ router.get('/:id', async (req, res) => {
 
 // Ruta para crear un nuevo producto  solo admin)
 router.post('/', protect, admin, async (req, res) => {
-  const { name, price, description, imageUrl } = req.body;
+  const { name, price, description, imageUrl, sizes } = req.body;
   try {
     const product = new Product({
       name,
       price,
       description,
       imageUrl,
+      sizes: sizes || [],
     });
     const createdProduct = await product.save();
     res.status(201).json(createdProduct);
@@ -66,7 +67,7 @@ router.post('/', protect, admin, async (req, res) => {
 
 // Ruta para actualizar un producto (solo admin)
 router.put('/:id', protect, admin, async (req, res) => {
-  const { name, price, description, imageUrl } = req.body;
+  const { name, price, description, imageUrl, sizes } = req.body;
   try {
     const product = await Product.findById(req.params.id);
     if (product) {
@@ -74,6 +75,7 @@ router.put('/:id', protect, admin, async (req, res) => {
       product.price = price || product.price;
       product.description = description || product.description;
       product.imageUrl = imageUrl || product.imageUrl;
+      product.sizes = sizes || product.sizes;
       const updatedProduct = await product.save();
       res.json(updatedProduct);
     } else {

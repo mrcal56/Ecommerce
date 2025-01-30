@@ -1,65 +1,111 @@
 /* App-specific styles */
 .App {
     text-align: center;
-    background-color: #2b3035; /* Fondo del contenedor principal */
+    background-color: #F8F9FA ; /* Fondo del contenedor principal */
     color: #ffffff; /* Color del texto */
     min-height: 100vh; /* Asegura que cubra toda la altura de la pantalla */
-    font-family: Verdana, sans-serif;
+    font-family: Open Sans, sans-serif;
+    font-weight: 700;
+    text-decoration: none !important;
+
   }
   
   .App-header {
-    background-color: #2b3035;
+    background-color: #c5b4b4;
     color: #ffffff;
     padding: 10px 0;
     font-family: Verdana, sans-serif;
   }
   
   .main {
+    margin-top: 70px; /* Altura del header */
+
     padding: 20px;
-    background-color: #2b3035; /* Fondo principal */
-    color: #ffffff; /* Color del texto */
+    background-color: #F8F9FA; /* Fondo principal */
+    color: #000000; /* Color del texto */
     min-height: 80vh; /* Asegura que cubra la mayoría de la pantalla */
-    font-family: Verdana, sans-serif;
+    font-family: Open Sans, sans-serif;
+    font-weight: 700;
+
   }
   
   .container {
-    background-color: #2b3035; /* Fondo del contenedor */
-    color: #ffffff; /* Color del texto */
-    font-family: Verdana, sans-serif;
+    background-color: #F8F9FA; /* Fondo del contenedor */
+    color: #000000; /* Color del texto */
+    font-family: Open Sans, sans-serif;
+    font-weight: 700;
+
   }
   
   .card {
-    background-color: #3a3f44; /* Fondo de la tarjeta */
-    color: #ffffff; /* Color del texto */
-    border: 1px solid #3a3f44; /* Borde de la tarjeta */
-    font-family: Verdana, sans-serif;
-  }
-  
-  .footer {
-    background-color: #2b3035;
+  background-color: #ADB5BD; /* Fondo de la tarjeta */
+  color: #ffffff; /* Color del texto */
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  border-radius: 25px; /* Bordes redondeados */
+  padding: 30px; /* Espaciado interno */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Suaviza los cambios */
+  width: 300px; /* Ancho fijo */
+  height: 520px; /* Altura fija */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between; /* Distribuye los elementos uniformemente */
+  text-align: center;
+}
+
+
+/* Imágenes dentro del card */
+.card img {
+  width: 100%; /* Ancho completo del contenedor */
+  height: auto; /* Mantiene la proporción de la imagen */
+  max-height: 300px; /* Limita la altura máxima de la imagen */
+  object-fit: contain; /* Asegura que la imagen se ajuste correctamente */
+  margin-bottom: 10px; /* Espaciado debajo de la imagen */
+}
+
+
+  h5{
+    font-family: Open Sans, sans-serif;
+    font-weight: 700;
     color: #ffffff;
-    padding: 20px 0;
+  }
+
+  .card:hover {
+    transform: translateY(-8px) scale(1.05); /* Efecto de elevación y zoom */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Sombra más intensa */
+    background-color: #6c757d; /* Color de fondo más oscuro en hover */
   }
   
-  .footer img {
-    width: 100px;
-  }
   
-  .footer p {
-    margin: 5px 0;
-  }
-  
-  button {
-    background-color: #ff6f61;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
+ /* Botón */
+ button {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  background-color: #343A40; /* Fondo oscuro */
+  color: white; /* Texto blanco */
+  border: none;
+  padding: 12px 25px; /* Más espaciado para hacerlo visualmente atractivo */
+  border-radius: 15px; /* Bordes redondeados más suaves */
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s; /* Suaviza cambios de color y agrega animación */
+}
   
   button:hover {
-    background-color: #e65e50;
+    background-color: #DEE2E6;
+    color: #3a3f44;
   }
   
+
+  .size-buttons .btn {
+    width: 60px; /* Ancho fijo para los botones */
+    text-align: center;
+  }
+  .size-buttons .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  .size-buttons .btn-outline-secondary:hover {
+    background-color: #f8f9fa;
+  }

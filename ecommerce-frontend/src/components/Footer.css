@@ -1,0 +1,49 @@
+.footer {
+  background-color: #343A40;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  position: relative;
+  text-align: center;
+}
+
+/* Logo de Instagram en la esquina inferior izquierda */
+.footer-left {
+  position: absolute;
+  left: 20px; /* Mueve el icono más a la izquierda */
+  bottom: 10px;
+}
+
+.instagram-link {
+  color: #E1306C; /* Color de Instagram */
+  font-size: 2rem; /* Tamaño del icono */
+  text-decoration: none;
+}
+
+.instagram-icon {
+  transition: transform 0.3s ease-in-out;
+}
+
+.instagram-icon:hover {
+  transform: scale(1.2);
+}
+
+/* Centrado del logo y texto */
+.footer-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-logo {
+  width: 10rem;
+  height: auto;
+}
+
+.footer-text {
+  font-size: 1rem;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+}

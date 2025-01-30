@@ -59,17 +59,22 @@ const Cart = () => {
       ) : (
         <>
           <ul className="cart-items">
-            {cartItems.map((item) => (
-              <li key={item._id} className="cart-item">
-                <div className="cart-item-details">
-                  <span className="item-name">{item.name}</span>
-                  <span className="item-price">${item.price} MXN</span>
-                  <button onClick={() => removeFromCart(item)} className="remove-button">Remove</button>
-                </div>
-              </li>
-            ))}
+          {cartItems.map((item, index) => (
+  <li key={`${item._id}-${item.size || 'default'}-${index}`} className="cart-item">
+    <div className="cart-item-details">
+      <span className="item-name">{item.name}</span>
+      <span className="item-price">${item.price}MXN </span>
+      {item.size && <span className="item-size">Talla: {item.size}</span>} {/* Muestra la talla si existe */}
+      <span className="item-quantity">Cantidad: {item.quantity}</span>
+      <button onClick={() => removeFromCart(item)} className="remove-button">
+        Remove
+      </button>
+    </div>
+  </li>
+))}
           </ul>
           <div className="cart-total">
+          <p>Total a pagar: <strong>${cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0)} MXN</strong></p>
             <button onClick={() => setShowForm(true)} className="checkout-button">Checkout</button>
           </div>
         </>

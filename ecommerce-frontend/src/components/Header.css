@@ -1,33 +1,36 @@
+/* ======== HEADER ESTILOS GENERALES ======== */
 .header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 60px; /* Ajuste para evitar que se vea muy grande */
+  z-index: 1000;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
-  background-color: #2b3035;
+  padding: 5px 15px;
+  background-color: #212529;
   color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.header-left {
-  display: flex;
-  align-items: center;
-}
-
+/* ======== MENÚ HAMBURGUESA ======== */
 .menu-icon {
-  position: relative;
-  margin-right: 20px;
+  display: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: white;
 }
 
 .menu-icon i {
-  font-size: 24px;
-  cursor: pointer;
-  color: #ffffff;
+  color: white;
 }
 
 .dropdown-menu {
   display: none;
   position: absolute;
-  top: 30px;
-  left: 0;
+  top: 50px;
+  left: 10px;
   background-color: #2b3035;
   padding: 10px;
   border-radius: 5px;
@@ -38,130 +41,234 @@
   display: block;
 }
 
-.dropdown-menu a,
-.dropdown-menu button {
-  display: block;
-  color: white;
-  text-decoration: none;
-  padding: 5px 0;
-  border: none;
-  background: none;
-  cursor: pointer;
-}
-
-.dropdown-menu a:hover,
-.dropdown-menu button:hover {
-  text-decoration: underline;
-}
-
-.logo {
-  font-size: 24px;
-  color: white;
-  text-decoration: none;
-}
-
+/* ======== LOGO CENTRADO ======== */
 .header-center {
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
-}
-
-.search-container {
-  position: relative;
-}
-
-.search-icon {
-  font-size: 24px;
-  cursor: pointer;
-  margin-right: 20px;
-}
-
-.search-box {
   position: absolute;
-  top: 30px;
-  right: 0;
-  background-color: white;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-}
-
-.search-box input {
-  width: 200px;
-  padding: 5px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  color: #2b3035;
-}
-
-.search-results {
-  margin-top: 10px;
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  max-height: 200px;
-  overflow-y: auto;
-}
-
-.search-result {
-  padding: 5px;
-  border-bottom: 1px solid #ddd;
-  color: #2b3035;
-}
-
-.search-result:last-child {
-  border-bottom: none;
-}
-
-.search-result:hover {
-  background-color: #f8f9fa;
-}
-
-.header-right {
+  left: 50%;
+  transform: translateX(-50%); /* Lo centra perfectamente */
   display: flex;
   align-items: center;
 }
 
-.cart-icon {
+.logo-image {
+  max-width: 160px; /* Ajusta el tamaño para computadoras */
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* ======== BOTONES DEL HEADER ======== */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Espacio entre los elementos */
+  margin-right: 15px;
+}
+
+/* ======== ICONOS (BUSCAR & CARRITO) ======== */
+.search-container, .cart-icon {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
   position: relative;
-  margin-right: 20px;
 }
 
 .cart-icon i {
-  font-size: 24px;
-  cursor: pointer;
+  font-size: 22px;
 }
 
 .cart-count {
   position: absolute;
-  top: -5px;
-  right: -10px;
-  background-color: #ff6f61;
+  top: -3px;
+  right: -8px;
+  background-color: red;
   color: white;
   border-radius: 50%;
   padding: 3px 7px;
   font-size: 12px;
 }
 
-.btn-account,
-.btn-edit,
-.btn-logout,
-.btn-login,
-.btn-register {
-  background-color: #3c49bd;
+/* ======== BOTÓN AGREGAR PRODUCTO ======== */
+.btn-add-product {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+  background-color: #28a745;
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 8px 15px;
   border-radius: 5px;
   cursor: pointer;
-  margin-left: 10px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  margin-left: 15px;
 }
 
-.btn-account:hover,
-.btn-edit:hover,
-.btn-logout:hover,
-.btn-login:hover,
-.btn-register:hover {
-  background-color: #3c49bd;
+.btn-add-product:hover {
+  background-color: #218838;
+}
+
+/* ======== BOTONES DE USUARIO ======== */
+.btn-account, .btn-edit, .btn-logout, .btn-login, .btn-register {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  color: #CED4DA;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-account:hover, .btn-edit:hover, .btn-logout:hover,
+.btn-login:hover, .btn-register:hover {
+  text-decoration: none;
+  color: #212529;
+  background-color: #CED4DA;
+}
+
+
+/* ======== BUSCADOR ======== */
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-box {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  width: 250px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  outline: none;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+/* RESULTADOS DE BÚSQUEDA */
+.search-results {
+  margin-top: 10px;
+  max-height: 250px;
+  overflow-y: auto;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+/* Cada resultado */
+.search-result {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+  text-decoration: none;
+  color: #333;
+  transition: background 0.2s;
+}
+
+.search-result:hover {
+  background-color: #f1f1f1;
+}
+
+/* Imagen en los resultados */
+.search-result-img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+
+
+/* ======== RESPONSIVIDAD PARA IPHONES ======== */
+@media (max-width: 768px) {
+  .header {
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between; /* Asegura la alineación en móviles */
+  }
+  /* Ajuste del menú hamburguesa */
+  .menu-icon {
+    display: block;
+    font-size: 26px;
+    margin-right: 10px;
+  }
+
+  .header-center {
+    position: relative; /* Lo coloca sin interferir */
+    left: auto;
+    transform: none;
+    flex-grow: 1; /* Lo centra sin forzar */
+    text-align: center;
+  }
+
+  .logo-image {
+    max-width: 90px; /* Tamaño reducido para smartphones */
+    height: auto;
+  }
+
+
+  /* Ajuste del carrito */
+  .cart-icon {
+    font-size: 22px;
+  }
+
+  .cart-count {
+    top: -2px;
+    right: -6px;
+    font-size: 10px;
+  }
+
+  /* Ajuste de los botones */
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .btn-account, .btn-edit, .btn-logout, .btn-login, .btn-register {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  /* Ocultar botón de agregar producto en móviles */
+  .btn-add-product {
+    display: none;
+  }
+
+  .search-box {
+    width: 100vw; /* Ocupa todo el ancho en móviles */
+    max-width: none; /* No limita el tamaño */
+    left: 0;
+    transform: none;
+    border-radius: 0;
+    top: 55px;
+  }
+
+  .search-result {
+    padding: 12px;
+  }
+
+  .search-result-img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .search-result-name {
+    font-size: 14px;
+  }
 }
