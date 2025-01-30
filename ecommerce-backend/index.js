@@ -11,9 +11,6 @@ const bcrypt = require('bcryptjs');
 
 dotenv.config(); // Asegúrate de que dotenv se configura antes de cualquier otra cosa
 
-// index.js
-
-
 connectDB();
 
 
