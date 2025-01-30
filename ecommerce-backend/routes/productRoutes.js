@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const { protect, admin } = require('../middlewares/authMiddleware');
 const Product = require('../models/product');
+const bcrypt = require('bcryptjs');
+
 
 
 // Ruta de búsqueda de productos
