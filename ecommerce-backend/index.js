@@ -12,7 +12,6 @@ const bcrypt = require('bcryptjs');
 dotenv.config(); // Asegúrate de que dotenv se configura antes de cualquier otra cosa
 
 // index.js
-console.log("Google Maps API Key:", process.env.REACT_APP_GOOGLE_MAPS_API_KEY);
 
 
 connectDB();
