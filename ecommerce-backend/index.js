@@ -6,7 +6,6 @@ const productRoutes = require('./routes/productRoutes');
 const userRoutes = require('./routes/userRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const cors = require('cors');
-const bcrypt = require('bcryptjs');
 
 
 dotenv.config(); // Asegúrate de que dotenv se configura antes de cualquier otra cosa
