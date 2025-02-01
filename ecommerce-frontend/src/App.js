@@ -14,7 +14,6 @@ import EditAccount from './components/EditAccount';
 import FloatingCart from './components/FloatingCart';
 import PaymentStatus from './components/PaymentStatus'; // Nueva ruta
 import Footer from './components/Footer';
-import Servicios from './components/Servicios'; // Nueva ruta
 import './App.css';
 
 const App = () => {
@@ -38,7 +37,6 @@ const App = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/servicios" element={<Servicios />} />
           <Route path="/add-product" element={<AddProduct />} />
           <Route path="/edit-products" element={<EditProducts />} />
           <Route path="/edit-product/:id" element={<EditProduct />} />
