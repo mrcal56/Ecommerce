@@ -21,7 +21,7 @@ const Header = ({ setShowFloatingCart }) => {
     if (searchTerm) {
       const fetchResults = async () => {
         const response = await fetch(
-          `http://localhost:5000/api/products/search?q=${searchTerm}`
+          `${process.env.REACT_APP_API_URL}/api/products/search?q=${searchTerm}`
         );
         const data = await response.json();
         setSearchResults(data);

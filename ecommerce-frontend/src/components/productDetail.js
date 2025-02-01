@@ -15,7 +15,7 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:5000/api/products/${id}`);
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/api/products/${id}`);
         setProduct(data);
   // Selecciona automáticamente la primera talla con stock disponible
   if (data.sizes && data.sizes.length > 0) {

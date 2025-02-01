@@ -32,7 +32,7 @@ const AddProduct = () => {
 
     try {
       await axios.post(
-        'http://localhost:5000/api/products',
+        '${process.env.REACT_APP_API_URL}/api/products',
         { name, price, description, imageUrl, sizes },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -46,28 +46,28 @@ const AddProduct = () => {
 
   return (
     <div className="container">
-      <h1>Add Product</h1>
+      <h1>Añadir Producto</h1>
 
       {error && <p className="alert alert-danger">{error}</p>}
 
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label htmlFor="name" className="form-label">Name</label>
+          <label htmlFor="name" className="form-label">Nombre</label>
           <input type="text" className="form-control" id="name" value={name} onChange={(e) => setName(e.target.value)} required />
         </div>
 
         <div className="mb-3">
-          <label htmlFor="price" className="form-label">Price</label>
+          <label htmlFor="price" className="form-label">Precio</label>
           <input type="number" className="form-control" id="price" value={price} onChange={(e) => setPrice(e.target.value)} required />
         </div>
 
         <div className="mb-3">
-          <label htmlFor="description" className="form-label">Description</label>
+          <label htmlFor="description" className="form-label">Descripcion</label>
           <textarea className="form-control" id="description" value={description} onChange={(e) => setDescription(e.target.value)} required></textarea>
         </div>
 
         <div className="mb-3">
-          <label htmlFor="imageUrl" className="form-label">Image URL</label>
+          <label htmlFor="imageUrl" className="form-label">Imagen URL</label>
           <input type="text" className="form-control" id="imageUrl" value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} required />
         </div>
 
@@ -88,7 +88,7 @@ const AddProduct = () => {
           ))}
         </div>
 
-        <button type="submit" className="btn btn-primary">Add Product</button>
+        <button type="submit" className="btn btn-primary">Añadir Producto</button>
       </form>
 
       {/* Botón adicional para agregar producto sin formulario */}

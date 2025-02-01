@@ -19,7 +19,7 @@ const EditAccount = () => {
       try {
         const token = localStorage.getItem('token');
         console.log('Fetching data for user ID:', user.id); // Debugging
-        const { data } = await axios.get(`http://localhost:5000/api/users/${user.id}`, {
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/api/users/${user.id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

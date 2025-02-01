@@ -11,7 +11,7 @@ const ProductList = ({ onAddToCart }) => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const { data } = await axios.get('http://localhost:5000/api/products');
+      const { data } = await axios.get('${process.env.REACT_APP_API_URL}/api/products');
       setProducts(data);
     };
 
