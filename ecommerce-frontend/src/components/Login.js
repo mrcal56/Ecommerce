@@ -18,7 +18,7 @@ const Login = () => {
       login(data, data.token);
       navigate('/');
     } catch (error) {
-      console.error('Error during login:', error); // Debugging
+      console.error('Error during login:', error); // Debugging 2
       setMessage('Invalid email or password');
     }
   };
