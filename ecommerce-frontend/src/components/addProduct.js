@@ -32,7 +32,7 @@ const AddProduct = () => {
 
     try {
       await axios.post(
-        '${process.env.REACT_APP_API_URL}/api/products',
+        `${process.env.REACT_APP_API_URL}/api/products`,
         { name, price, description, imageUrl, sizes },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -52,12 +52,12 @@ const AddProduct = () => {
 
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label htmlFor="name" className="form-label">Nombre</label>
+          <label htmlFor="name" className="form-label">Name</label>
           <input type="text" className="form-control" id="name" value={name} onChange={(e) => setName(e.target.value)} required />
         </div>
 
         <div className="mb-3">
-          <label htmlFor="price" className="form-label">Precio</label>
+          <label htmlFor="price" className="form-label">Pr</label>
           <input type="number" className="form-control" id="price" value={price} onChange={(e) => setPrice(e.target.value)} required />
         </div>
 

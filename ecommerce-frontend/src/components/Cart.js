@@ -20,8 +20,8 @@ const Cart = () => {
 
   const handleCheckout = async (e) => {
     e.preventDefault();
-    try {
-      await axios.post('${process.env.REACT_APP_API_URL}/api/orders/checkout', {
+    try { 
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/orders/checkout`, {
         name,
         lastName,
         email,
