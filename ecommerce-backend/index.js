@@ -13,11 +13,11 @@ dotenv.config(); // Asegúrate de que dotenv se configura antes de cualquier otr
 connectDB();
 
 
-const app = express();
+const app = express(); 
 
 // Configurar CORS
 app.use(cors({
-  origin: ['https://ecommercefront-nb3b821n8-mrcal56s-projects.vercel.app/','http://localhost:3000'], // Asegura que cualquier frontend pueda acceder a la API
+  origin: ['https://ecommercefront-pi.vercel.app','https://ecommercefront-m7tpzhr4p-mrcal56s-projects.vercel.app/','http://localhost:3000'], // Asegura que cualquier frontend pueda acceder a la API
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
