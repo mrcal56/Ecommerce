@@ -19,7 +19,7 @@ const ProductList = ({ onAddToCart }) => {
         } else if (response.data.products && Array.isArray(response.data.products)) {
           setProducts(response.data.products);
         } else {
-          console.error("Error: la respuesta del backend no contiene un array de productos.");
+          console.error("Error: la respuesta del backend no contiene array de productos.");
         }
       } catch (error) {
         console.error("Error obteniendo productos:", error);
