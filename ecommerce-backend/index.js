@@ -17,7 +17,7 @@ const app = express();
 
 // Configurar CORS
 app.use(cors({
-  origin: ['https://ecommercefront-pi.vercel.app/','http://localhost:3000'], // Asegura que cualquier frontend pueda acceder
+  origin: ['https://ecommercefront-l8dswh7kb-mrcal56s-projects.vercel.app/','http://localhost:3000'], // Asegura que cualquier frontend pueda acceder a la API
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
   res.send('API is running...');
 });
 
-// 🔹 Exportamos `app` para que Vercel lo maneje como función serverless
+//Exportamos `app` para que Vercel lo maneje como función serverless
 module.exports = app;
 
 //const PORT = process.env.PORT || 5000;
