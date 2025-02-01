@@ -13,7 +13,7 @@ const ProductList = ({ onAddToCart }) => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/products`);
-        console.log("Productos recibidos:", response.data); // 🔹 Verifica la respuesta del backend
+        console.log("Productos recibidos:", response.data); // Verifica la respuesta del backend
         if (Array.isArray(response.data)) {
           setProducts(response.data);
         } else if (response.data.products && Array.isArray(response.data.products)) {
