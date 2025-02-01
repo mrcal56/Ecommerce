@@ -23,7 +23,7 @@ const ProductList = ({ onAddToCart }) => {
         }
       } catch (error) {
         console.error("Error obteniendo productos:", error);
-        setProducts([]); // Asegura que al menos sea un array vacío
+        setProducts([]); // Asegura que  al menos sea un array vacío
       }
     };
 
