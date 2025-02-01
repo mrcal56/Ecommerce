@@ -41,7 +41,7 @@ const EditAccount = () => {
     try {
       const token = localStorage.getItem('token');
       console.log('Updating user data:', { name, email, password }); // Debugging
-      await axios.put(`http://localhost:5000/api/users/${user.id}`, {
+      await axios.put(`${process.env.REACT_APP_API_URL}/api/users/${user.id}`, {
         name,
         email,
         password,

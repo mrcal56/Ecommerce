@@ -55,7 +55,7 @@ const EditProduct = () => {
 
     try {
       await axios.put(
-        `http://localhost:5000/api/products/${id}`,
+        `${process.env.REACT_APP_API_URL}/api/products/${id}`,
         {
           name,
           price,
