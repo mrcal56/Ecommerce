@@ -17,7 +17,7 @@ const app = express();
 
 // Configurar CORS
 app.use(cors({
-  origin: "*", // Asegura que cualquier frontend pueda acceder
+  origin: ['https://ecommercefront-pi.vercel.app/','http://localhost:3000'], // Asegura que cualquier frontend pueda acceder
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
