@@ -21,7 +21,10 @@ const mpClient = axios.create({
   },
 });
 
+// =============================
 // POST /api/payments/mercadopago/preference
+// Crea una preferencia de pago en MP y devuelve el link
+// =============================
 exports.createPreference = asyncHandler(async (req, res) => {
   const { orderId } = req.body;
   if (!orderId) throw new ApiError(400, 'Missing orderId');
@@ -49,9 +52,7 @@ exports.createPreference = asyncHandler(async (req, res) => {
       failure: `${FRONT_URL}/cart?payment=failure`,
       pending: `${FRONT_URL}/payment-status?orderId=${order._id}`,
     },
-    // En localhost / pruebas es más seguro NO usar auto_return
-    // Si quieres activarlo en producción, puedes controlar con una env:
-    // auto_return: 'approved',
+    notification_url: `${process.env.BACKEND_URL || 'http://localhost:5000'}/api/payments/mercadopago/webhook`,
   };
 
   try {
@@ -73,3 +74,56 @@ exports.createPreference = asyncHandler(async (req, res) => {
     throw new ApiError(status, msg);
   }
 });
+
+// =============================
+// POST /api/payments/mercadopago/webhook
+// Recibe notificaciones de MP y actualiza el estado de la orden
+//
+// IMPORTANTE — configurar en MP Dashboard:
+// Notificaciones → URL: https://tu-dominio.com/api/payments/mercadopago/webhook
+// Eventos: payments
+// =============================
+exports.webhook = async (req, res) => {
+  // Siempre responder 200 primero — si tardamos MP puede reenviar la notificación
+  res.sendStatus(200);
+
+  try {
+    const { type, data } = req.body;
+
+    // MP notifica varios tipos de eventos, solo nos interesan los pagos
+    if (type !== 'payment') return;
+
+    const paymentId = data?.id;
+    if (!paymentId) return;
+
+    // Consultar el pago directamente a MP — nunca confiar solo en el body del webhook
+    // (cualquiera podría hacer un POST falso a esta ruta)
+    const mpRes = await mpClient.get(`/v1/payments/${paymentId}`);
+    const payment = mpRes.data;
+
+    // external_reference contiene el orderId que pusimos al crear la preferencia
+    const orderId = payment.external_reference;
+    if (!orderId) return;
+
+    const order = await Order.findById(orderId);
+    if (!order) return;
+
+    // Solo actualizar si el pago fue aprobado y la orden no está ya pagada
+    if (payment.status === 'approved' && order.status !== 'paid') {
+      order.status = 'paid';
+      order.payment = {
+        ...(order.payment || {}),
+        provider: 'mercadopago',
+        status: 'paid',
+        reference: String(paymentId),
+        paidAt: new Date(),
+      };
+      await order.save();
+      console.log(`[MP WEBHOOK] Orden ${orderId} marcada como pagada`);
+    }
+
+  } catch (err) {
+    // Log del error pero NO relanzar — ya respondimos 200
+    console.error('[MP WEBHOOK ERROR]', err.message);
+  }
+};
