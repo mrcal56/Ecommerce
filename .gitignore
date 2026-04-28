@@ -1,0 +1,7 @@
+.env
+server.js
+Servicios.js
+@"
+node_modules/
+.vercel/
+"@ | Set-Content .gitignore
