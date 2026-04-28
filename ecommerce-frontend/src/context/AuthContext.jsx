@@ -20,6 +20,11 @@ function parseJwt(token) {
   }
 }
 
+function isTokenExpired(claims) {
+  if (!claims?.exp) return true;
+  return Date.now() >= claims.exp * 1000;
+}
+
 
 function getUserIdFromClaims(claims) {
   return claims?.id || claims?._id || claims?.sub || null;
@@ -33,7 +38,7 @@ export const AuthProvider = ({ children }) => {
     const stored = localStorage.getItem('accessToken');
     if (stored) {
       const c = parseJwt(stored);
-      if (c) {
+      if (c&& !isTokenExpired(c)) {
         setAccessToken(stored);
         setClaims(c);
         api.defaults.headers.common['Authorization'] = `Bearer ${stored}`;
