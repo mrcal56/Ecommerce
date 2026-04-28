@@ -33,7 +33,7 @@ const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const usersRoutes = require('./routes/userRoutes');
-const paymentMpRoutes = require('./routes/paymentMPRoutes');
+const paymentMpRoutes = require('./routes/paymentMpRoutes');
 
 // Middlewares de manejo de errores y 404
 const { errorHandler, notFound } = require('./middlewares/error');
