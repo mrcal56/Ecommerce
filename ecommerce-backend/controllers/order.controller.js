@@ -34,7 +34,6 @@ exports.create = asyncHandler(async (req, res) => {
   const toSave = [];
 
   for (const it of items) {
-    // it.product: ID del producto, it.qty: cantidad, it.size: talla opcional
     const prod = await Product.findById(it.product);
 
     if (!prod) {
@@ -43,7 +42,7 @@ exports.create = asyncHandler(async (req, res) => {
 
     const unitPrice = prod.price;
 
-    // Si manejas stock por talla en Product.sizes
+    // Validar stock disponible (sin descontar todavía — eso ocurre al pagar)
     if (Array.isArray(prod.sizes) && prod.sizes.length > 0 && it.size) {
       const sizeEntry = prod.sizes.find((s) => s.size === it.size);
       if (!sizeEntry) {
@@ -52,16 +51,10 @@ exports.create = asyncHandler(async (req, res) => {
       if (sizeEntry.stock < it.qty) {
         throw new ApiError(409, `Not enough stock for ${prod.name} - size ${it.size}`);
       }
-      // Nota: “lo correcto” es decrementar stock aquí o al pagar; lo dejo comentado:
-      // sizeEntry.stock -= it.qty;
-      // await prod.save();
     } else if (typeof prod.stock === 'number') {
-      // Stock general
       if (prod.stock < it.qty) {
         throw new ApiError(409, `Not enough stock for ${prod.name}`);
       }
-      // prod.stock -= it.qty;
-      // await prod.save();
     }
 
     subtotal += unitPrice * it.qty;
@@ -80,7 +73,7 @@ exports.create = asyncHandler(async (req, res) => {
     items: toSave,
     shippingAddress,
     subtotal,
-    totalAmount: subtotal, 
+    totalAmount: subtotal,
     payment: {
       provider: 'mock',
       status: 'pending',
@@ -129,7 +122,7 @@ exports.getById = asyncHandler(async (req, res) => {
 
 // =============================
 // POST /api/orders/:id/pay
-// Simula pago de la orden (puerta para Stripe)
+// Confirma el pago y descuenta stock de forma atómica
 // =============================
 exports.pay = asyncHandler(async (req, res) => {
   const userId = getUserId(req);
@@ -146,11 +139,54 @@ exports.pay = asyncHandler(async (req, res) => {
     throw new ApiError(403, 'Forbidden');
   }
 
+  // Si ya está pagada, devolver sin hacer nada
   if (order.status === 'paid' || order.payment?.status === 'paid') {
     return res.json(order);
   }
 
-  // Aquí iría la lógica real de integración con proveedor de pago
+  // ─── DESCUENTO DE STOCK ATÓMICO ───────────────────────────────────────────
+  // Se hace aquí (al confirmar pago) y no al crear la orden.
+  // Usar $inc con $gte en la query evita race conditions:
+  // si el stock llegó a 0 entre que el usuario inició y confirmó el pago,
+  // el updateOne no modifica nada (modifiedCount === 0) y lanzamos error.
+  for (const item of order.items) {
+    if (item.size) {
+      // Stock por talla
+      const result = await Product.updateOne(
+        {
+          _id: item.product,
+          'sizes.size': item.size,
+          'sizes.$.stock': { $gte: item.qty },
+        },
+        { $inc: { 'sizes.$.stock': -item.qty } }
+      );
+
+      if (result.modifiedCount === 0) {
+        throw new ApiError(
+          409,
+          `Stock insuficiente para ${item.name} - talla ${item.size}. Intenta de nuevo.`
+        );
+      }
+    } else {
+      // Stock general
+      const result = await Product.updateOne(
+        {
+          _id: item.product,
+          stock: { $gte: item.qty },
+        },
+        { $inc: { stock: -item.qty } }
+      );
+
+      if (result.modifiedCount === 0) {
+        throw new ApiError(
+          409,
+          `Stock insuficiente para ${item.name}. Intenta de nuevo.`
+        );
+      }
+    }
+  }
+  // ─────────────────────────────────────────────────────────────────────────
+
   order.status = 'paid';
   order.payment = {
     ...(order.payment || {}),
