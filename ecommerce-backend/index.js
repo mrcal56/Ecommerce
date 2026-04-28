@@ -48,7 +48,7 @@ app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
 // Convierte el body JSON a objeto JS con límite razonable
 app.use(express.json({ limit: '1mb' }));
 
-// Construye la lista de orígenes permitidos para CORS desde env
+// Construye la lista de orígenes permitidos para CORS desde .env
 const allowedOrigins = (process.env.CORS_ORIGINS || '')
   .split(',')
   .map(s => s.trim())
