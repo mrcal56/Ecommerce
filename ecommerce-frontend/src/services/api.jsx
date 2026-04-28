@@ -1,17 +1,8 @@
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
+const BASE = import.meta.env.VITE_API_URL || '/api' || process.env.REACT_APP_API_URL;
 
-// Compatible con Vite y CRA (ambos entornos)
-const BASE =
-  (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_URL) ||
-  process.env.REACT_APP_API_URL ||
-  '/api'; // fallback: usa proxy de Vite
-
-
-
-
-// Crea la instancia de Axios
 const api = axios.create({
   baseURL: BASE,
   timeout: 15000,
@@ -20,7 +11,6 @@ const api = axios.create({
   }
 });
 
-// Interceptor para adjuntar automáticamente el token
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -30,12 +20,21 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Interceptor para manejar errores globales (401, 500, etc.)
 api.interceptors.response.use(
   (r) => r,
   (e) => {
-    const msg = e?.response?.data?.error || e.message || 'Error';
-    toast.error(msg);
+    const data = e?.response?.data;
+
+    const msg =
+      typeof data?.error === 'string'
+        ? data.error
+        : data?.error?.message ||
+          data?.message ||
+          e.message ||
+          'Error';
+
+    toast.error(String(msg));
+
     return Promise.reject(e);
   }
 );
