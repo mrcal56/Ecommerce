@@ -4,6 +4,16 @@ const express = require('express');
 const dotenv = require('dotenv');
 // Inicializa el uso de variables de entorno lo antes posible
 dotenv.config();
+
+
+console.log('ENV CHECK:', {
+  NODE_ENV: process.env.NODE_ENV,
+  MONGO_URI: !!process.env.MONGO_URI,
+  JWT_SECRET: !!process.env.JWT_SECRET,
+  MP_ACCESS_TOKEN: !!process.env.MP_ACCESS_TOKEN,
+  CORS_ORIGINS: process.env.CORS_ORIGINS
+});
+
 // Middleware para cabeceras de seguridad HTTP
 const helmet = require('helmet');
 // Middleware para CORS configurable
@@ -28,11 +38,11 @@ const paymentMpRoutes = require('./routes/paymentMPRoutes');
 // Middlewares de manejo de errores y 404
 const { errorHandler, notFound } = require('./middlewares/error');
 
-
+console.log('Antes de conectar MongoDB...');
 
 // Establece conexión a MongoDB
 connectDB();
-
+console.log('Después de llamar connectDB...');
 // Crea la aplicación Express
 const app = express();
 
