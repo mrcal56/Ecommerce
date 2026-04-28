@@ -7,7 +7,7 @@ import ProductDetail from './components/productDetail';
 import Cart from './components/Cart';
 import Login from './components/Login';
 import Register from './components/Register';
-import AddProduct from './components/AddProduct';
+import AddProduct from './components/addProduct';
 import EditProducts from './components/EditProducts';
 import EditProduct from './components/EditProduct';
 import ChangePassword from './components/ChangePassword';
