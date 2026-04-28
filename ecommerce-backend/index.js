@@ -90,6 +90,10 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 5000;
 
 // Inicia el servidor HTTP
-app.listen(PORT, () => {
-  console.log(`API listening on http://localhost:${PORT}`);
-});
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`API listening on http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;
