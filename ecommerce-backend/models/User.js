@@ -1,30 +1,27 @@
+// Carga Mongoose para definir el esquema
 const mongoose = require('mongoose');
+// Carga bcrypt para hash de contraseñas
 const bcrypt = require('bcryptjs');
 
-// Definir el esquema del usuario
+// Define el esquema de usuario con validaciones
 const userSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  role: { type: String, default: 'user' },
+  name: { type: String, required: true, trim: true },          // Nombre del usuario
+  email: { type: String, required: true, unique: true, lowercase: true, trim: true }, // Email único
+  password: { type: String, required: true, minlength: 6 },    // Contraseña con longitud mínima
+  role: { type: String, enum: ['user', 'admin'], default: 'user' } // Rol con valores restringidos
+}, { timestamps: true });
+
+// Pre-hook para hashear la contraseña solo si fue modificada
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next();            // Si no cambió, no hashea
+  this.password = await bcrypt.hash(this.password, 12);       // Hashea con sal por defecto
+  next();                                                     // Continúa el flujo
 });
 
-// Método para comparar contraseñas
-userSchema.methods.matchPassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
+// Método de instancia para comparar contraseñas
+userSchema.methods.compare = function (plain) {
+  return bcrypt.compare(plain, this.password);                // Retorna promesa booleana
 };
 
-// Middleware para hash de contraseña antes de guardar
-userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) {
-    return next();
-  }
-
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
-  next();
-});
-
-const User = mongoose.model('User', userSchema);
-
-module.exports = User;
+// Exporta el modelo User
+module.exports = mongoose.model('User', userSchema);
