@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 
 // Componente de registro de usuarios
 const Register = () => {
@@ -11,7 +11,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post('${process.env.REACT_APP_API_URL}/api/users/register', {
+      const { data } = await api.post(`/api/users/register`, {
         name,
         email,
         password,

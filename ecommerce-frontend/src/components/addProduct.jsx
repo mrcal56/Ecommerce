@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import api from '../services/api';
 
 const AddProduct = () => {
   const [name, setName] = useState('');
@@ -31,8 +31,8 @@ const AddProduct = () => {
     const token = localStorage.getItem('token');
 
     try {
-      await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/products`,
+      await api.post(
+        `/products`,
         { name, price, description, imageUrl, sizes },
         { headers: { Authorization: `Bearer ${token}` } }
       );

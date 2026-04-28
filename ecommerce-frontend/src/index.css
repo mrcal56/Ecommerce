@@ -1,15 +1,16 @@
 /* Global styles */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
 html, body {
     margin: 0;
     padding: 0;
-    overflow-x: hidden; /* Evita el desplazamiento horizontal */
+    overflow-x: hidden;
     height: 100%;
-    font-family: Verdana, sans-serif;
-    background-color: #000000cc; /* Fondo de toda la página */
-    color: #ffffff; /* Color del texto */
+    font-family: 'Outfit', sans-serif;
+    background-color: #f4f6f9; /* Fondo limpio claro */
+    color: #1a1a2e; /* Color del texto oscuro elegante */
     text-decoration: none !important;
-
-  }
+}
   
   
   
@@ -56,7 +57,7 @@ html, body {
   }
   
   .header .ml-auto .nav-link {
-    color: white;
+    color: #1a1a2e;
     display: flex;
     align-items: center;
   }
@@ -68,15 +69,25 @@ html, body {
   /* Floating cart styles */
   .floating-cart {
     position: fixed;
-    top: 50px;
+    top: 80px;
     right: 20px;
-    width: 300px;
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    padding: 10px;
+    width: 320px;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.07);
+    border-radius: 16px;
+    padding: 20px;
     z-index: 1000;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.4s ease;
+    transform: translateY(-10px);
+  }
+  
+  .floating-cart.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
   }
   
   .floating-cart.show {

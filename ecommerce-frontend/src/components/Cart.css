@@ -1,19 +1,22 @@
 /* ✅ Estilos generales */
 body {
-  background-color: #2b3035;
-  color: #ffffff;
-  font-family: Verdana, sans-serif;
+  color: #1a1a2e;
+  font-family: 'Outfit', sans-serif;
   margin: 0;
   padding: 0;
 }
 
 .cart-container {
-  padding: 20px;
+  padding: 30px;
   max-width: 800px;
   margin: 0 auto;
-  background-color: #2b3035;
-  color: #ffffff;
-  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #1a1a2e;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
 }
 
 /* ✅ Lista de productos en el carrito */
@@ -27,14 +30,15 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   padding: 15px 10px;
   position: relative;
   transition: background 0.3s;
+  border-radius: 10px;
 }
 
 .cart-item:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.9);
 }
 
 /* ✅ Detalles del producto */
@@ -56,7 +60,7 @@ body {
 .item-name, .item-price {
   font-size: 1rem;
   font-weight: bold;
-  color: #ffffff;
+  color: #1a1a2e;
   margin-right: 20px;
 }
 
@@ -85,7 +89,7 @@ body {
   margin-top: 20px;
   font-size: 1.2rem;
   font-weight: bold;
-  color: #ffffff;
+  color: #1a1a2e;
 }
 
 /* ✅ Botón de Checkout centrado */
@@ -107,12 +111,15 @@ body {
 
 /* ✅ Formulario de pago */
 .checkout-form {
-  background-color: #3a3f44;
-  color: #ffffff;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #1a1a2e;
   padding: 20px;
-  border-radius: 10px;
+  border-radius: 20px;
   margin-top: 20px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
 }
 
 /* ✅ Inputs del formulario */

@@ -1,10 +1,12 @@
 .footer {
-  background-color: #343A40;
-  color: #fff;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  color: #1a1a2e;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 20px;
+  padding: 20px;
   position: relative;
   text-align: center;
 }
@@ -44,6 +46,6 @@
 
 .footer-text {
   font-size: 1rem;
-  font-family: 'Open Sans', sans-serif;
-  font-weight: bold;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
 }

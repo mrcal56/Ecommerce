@@ -4,26 +4,22 @@ import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
 import "./Header.css";
 import logo from "../flammeB.png";
+import api from "../services/api";
 
 const Header = ({ setShowFloatingCart }) => {
   const { user, logout } = useAuth();
-  const { cartItems } = useCart();
+  const { cartItems, totalItems } = useCart();
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [showSearchBox, setShowSearchBox] = useState(false);
-
-  const { totalItems } = useCart(); // 🔹 Obtenemos la cantidad total de productos
-
 
   //const searchBoxRef = useRef(null);
 
   useEffect(() => {
     if (searchTerm) {
       const fetchResults = async () => {
-        const response = await fetch(
-          `${process.env.REACT_APP_API_URL}/api/products/search?q=${searchTerm}`
-        );
-        const data = await response.json();
+        const response = await api.get(`/products/search?q=${searchTerm}`);
+        const data = response.data;
         setSearchResults(data);
       };
 
@@ -38,7 +34,6 @@ const Header = ({ setShowFloatingCart }) => {
     setSearchResults([]); // Limpia los resultados
     setShowSearchBox(false); // Oculta la caja de búsqueda
   };
-  
 
   const handleSearchToggle = () => {
     setShowSearchBox(!showSearchBox);
@@ -69,6 +64,13 @@ const Header = ({ setShowFloatingCart }) => {
             >
               Instagram
             </a>
+
+            {user && (
+              <>
+                <Link to="/my-orders">Mis órdenes</Link>
+                <Link to="/edit-account">Mi cuenta</Link>
+              </>
+            )}
             {!user && (
               <>
                 <Link to="/login">Iniciar Sesión</Link>
@@ -77,56 +79,63 @@ const Header = ({ setShowFloatingCart }) => {
             )}
           </div>
         </div>
-        </div>
+      </div>
 
-          {/* Contenedor central del logo */}
-    <div className="header-center">
-      <Link to="/" className="logo">
-        <img src={logo} alt="Flamme" className="logo-image" />
-      </Link>
-    </div>
-
+      {/* Contenedor central del logo */}
+      <div className="header-center">
+        <Link to="/" className="logo">
+          <img src={logo} alt="Flamme" className="logo-image" />
+        </Link>
+      </div>
 
       <div className="header-center"></div>
       <div className="header-right">
+        {/* Icono de búsqueda */}
 
-
-      {/* Icono de búsqueda */}
-     
-      <div className="search-container">
-  <i className="fas fa-search search-icon" onClick={handleSearchToggle}></i>
-  {showSearchBox && (
-    <div className="search-box">
-      <input
-        type="text"
-        placeholder="Buscar productos..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
-      {searchResults.length > 0 && (
-        <div className="search-results">
-          {searchResults.map((product) => (
-            <Link key={product._id} to={`/product/${product._id}`} className="search-result" onClick={handleSelectProduct}> 
-              <img src={product.imageUrl} alt={product.name} className="search-result-img" />
-              <span className="search-result-name">{product.name}</span>
-            </Link>
-          ))}
+        <div className="search-container">
+          <i
+            className="fas fa-search search-icon"
+            onClick={handleSearchToggle}
+          ></i>
+          {showSearchBox && (
+            <div className="search-box">
+              <input
+                type="text"
+                placeholder="Buscar productos..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              {searchResults.length > 0 && (
+                <div className="search-results">
+                  {searchResults.map((product) => (
+                    <Link
+                      key={product._id}
+                      to={`/product/${product._id}`}
+                      className="search-result"
+                      onClick={handleSelectProduct}
+                    >
+                      <img
+                        src={product.imageUrl}
+                        alt={product.name}
+                        className="search-result-img"
+                      />
+                      <span className="search-result-name">{product.name}</span>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
         </div>
-      )}
-    </div>
-  )}
-</div>
-
-
-
 
         {/* Carrito de compras */}
         <Link to="/cart" className="cart-icon">
           <i className="fas fa-shopping-cart"></i>
           {totalItems > 0 && <span className="cart-count">{totalItems}</span>}
         </Link>
-           {/* Botón "Agregar Producto" solo para administradores */}
-           {user && user.role === "admin" && (
+
+        {/* Botón "Agregar Producto" solo para administradores */}
+        {user && user.role === "admin" && (
           <Link to="/add-product" className="btn-add-product">
             Agregar Producto
           </Link>
@@ -141,6 +150,14 @@ const Header = ({ setShowFloatingCart }) => {
             >
               Mi Cuenta
             </button>
+
+            <button
+              className="btn-orders"
+              onClick={() => (window.location.href = "/my-orders")}
+            >
+              Mis órdenes
+            </button>
+
             {user.role === "admin" && (
               <button
                 className="btn-edit"
@@ -149,6 +166,7 @@ const Header = ({ setShowFloatingCart }) => {
                 Editar Productos
               </button>
             )}
+
             <button className="btn-logout" onClick={handleLogout}>
               Logout
             </button>

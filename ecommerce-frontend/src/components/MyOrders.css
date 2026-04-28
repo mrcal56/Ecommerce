@@ -1,0 +1,63 @@
+/* src/components/MyOrders.css */
+
+.my-orders-container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #212529;
+  color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.my-orders-container h1 {
+  margin-bottom: 1rem;
+}
+
+.my-orders-message {
+  margin-top: 1rem;
+}
+
+.my-orders-table-wrapper {
+  margin-top: 1rem;
+  overflow-x: auto;
+}
+
+.my-orders-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.my-orders-table th,
+.my-orders-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #343a40;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.my-orders-table th {
+  background-color: #343a40;
+}
+
+.my-orders-id {
+  font-family: monospace;
+  font-size: 0.8rem;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.my-orders-details-btn {
+  padding: 0.35rem 0.75rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #0d6efd;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.my-orders-details-btn:hover {
+  background-color: #0b5ed7;
+}

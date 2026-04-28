@@ -25,27 +25,27 @@
 
 
 .product-title {
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 700;
-  color: #666;
-  margin-bottom: 5px;
-
+  color: #1a1a2e;
+  margin-bottom: 10px;
+  font-family: 'Outfit', sans-serif;
 }
 
 .product-price {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #666;
-  margin-bottom: 10px;
-
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #2a9d8f;
+  margin-bottom: 15px;
+  font-family: 'Outfit', sans-serif;
 }
 
 .product-description {
-  font-size: 1rem;
-  line-height: 1.5;
-  color: #666;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #4a4e69;
   max-width: 90%;
-
+  font-family: 'Outfit', sans-serif;
 }
 
 /* Columna Central */
@@ -150,21 +150,24 @@
 /* Botón "Add to Cart" */
 .add-to-cart-button {
   padding: 15px;
-  background-color: #343A40;
+  background: linear-gradient(135deg, #1a1a2e, #4a4e69);
   color: white;
   border: none;
   border-radius: 35px;
-  font-size: 1rem;
-  font-weight: bold;
+  font-size: 1.1rem;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: 100%; /* Ocupa todo el ancho en móviles */
+  box-shadow: 0 4px 15px rgba(26, 26, 46, 0.2);
+  transition: all 0.3s ease;
+  width: 100%;
   text-align: center;
 }
 
 .add-to-cart-button:hover {
-  background-color: #DEE2E6;
-  color: #3a3f44;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(26, 26, 46, 0.3);
+  background: linear-gradient(135deg, #4a4e69, #1a1a2e);
 }
 
 /* ======== RESPONSIVIDAD PARA SMARTPHONES ======== */

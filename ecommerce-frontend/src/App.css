@@ -1,57 +1,55 @@
 /* App-specific styles */
 .App {
     text-align: center;
-    background-color: #F8F9FA ; /* Fondo del contenedor principal */
-    color: #ffffff; /* Color del texto */
-    min-height: 100vh; /* Asegura que cubra toda la altura de la pantalla */
-    font-family: Open Sans, sans-serif;
-    font-weight: 700;
+    background-color: transparent;
+    color: #1a1a2e;
+    min-height: 100vh;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
     text-decoration: none !important;
-
   }
   
   .App-header {
-    background-color: #c5b4b4;
-    color: #ffffff;
+    background-color: transparent;
+    color: #1a1a2e;
     padding: 10px 0;
-    font-family: Verdana, sans-serif;
+    font-family: 'Outfit', sans-serif;
   }
   
   .main {
-    margin-top: 70px; /* Altura del header */
-
+    margin-top: 80px;
     padding: 20px;
-    background-color: #F8F9FA; /* Fondo principal */
-    color: #000000; /* Color del texto */
-    min-height: 80vh; /* Asegura que cubra la mayoría de la pantalla */
-    font-family: Open Sans, sans-serif;
-    font-weight: 700;
-
+    background-color: transparent;
+    color: #1a1a2e;
+    min-height: 80vh;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
   }
   
   .container {
-    background-color: #F8F9FA; /* Fondo del contenedor */
-    color: #000000; /* Color del texto */
-    font-family: Open Sans, sans-serif;
-    font-weight: 700;
-
+    background-color: transparent;
+    color: #1a1a2e;
+    font-family: 'Outfit', sans-serif;
   }
   
   .card {
-  background-color: #ADB5BD; /* Fondo de la tarjeta */
-  color: #ffffff; /* Color del texto */
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 700;
-  border-radius: 25px; /* Bordes redondeados */
-  padding: 30px; /* Espaciado interno */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Suaviza los cambios */
-  width: 300px; /* Ancho fijo */
-  height: 520px; /* Altura fija */
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #1a1a2e;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+  transition: all 0.4s ease;
+  width: 300px;
+  height: 520px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between; /* Distribuye los elementos uniformemente */
+  justify-content: space-between;
   text-align: center;
 }
 
@@ -67,34 +65,38 @@
 
 
   h5{
-    font-family: Open Sans, sans-serif;
+    font-family: 'Outfit', sans-serif;
     font-weight: 700;
-    color: #ffffff;
+    color: #1a1a2e;
+    margin-bottom: 10px;
   }
 
   .card:hover {
-    transform: translateY(-8px) scale(1.05); /* Efecto de elevación y zoom */
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Sombra más intensa */
-    background-color: #6c757d; /* Color de fondo más oscuro en hover */
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px 0 rgba(31, 38, 135, 0.1);
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.8);
   }
   
   
  /* Botón */
  button {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 700;
-  background-color: #343A40; /* Fondo oscuro */
-  color: white; /* Texto blanco */
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  background: linear-gradient(135deg, #1a1a2e, #4a4e69);
+  color: white;
   border: none;
-  padding: 12px 25px; /* Más espaciado para hacerlo visualmente atractivo */
-  border-radius: 15px; /* Bordes redondeados más suaves */
+  padding: 12px 25px;
+  border-radius: 30px;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s; /* Suaviza cambios de color y agrega animación */
+  box-shadow: 0 4px 15px rgba(26, 26, 46, 0.2);
+  transition: all 0.3s ease;
 }
   
   button:hover {
-    background-color: #DEE2E6;
-    color: #3a3f44;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(26, 26, 46, 0.3);
+    background: linear-gradient(135deg, #4a4e69, #1a1a2e);
   }
   
 
