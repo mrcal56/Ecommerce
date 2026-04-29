@@ -7,12 +7,12 @@ import {
 } from "react-router-dom";
 
 import Header from "./components/Header";
-import ProductList from "./components/productList";
-import ProductDetail from "./components/productDetail";
+import ProductList from "./components/ProductList";
+import ProductDetail from "./components/ProductDetail";
 import Cart from "./components/Cart";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import AddProduct from "./components/addProduct";
+import AddProduct from "./components/AddProduct";
 import EditProducts from "./components/EditProducts";
 import EditProduct from "./components/EditProduct";
 import ChangePassword from "./components/ChangePassword";
